@@ -1,5 +1,9 @@
 package com.jinseon0328.myproject;
 
+import com.jinseon0328.myproject.handler.DramaHandler;
+import com.jinseon0328.myproject.handler.MovieHandler;
+import com.jinseon0328.util.Prompt;
+
 public class App {
 
   public static void main(String[] args) {
