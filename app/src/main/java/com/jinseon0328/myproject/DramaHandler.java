@@ -17,7 +17,7 @@ public class DramaHandler {
 
   static void add() {
 
-    System.out.println("[드라마 등록]");
+    System.out.println("[감상한 드라마 기록하기]");
 
     dtitle[dsize] = Prompt.inputString("제목: ");
     ddirector[dsize] = Prompt.inputString("연출: ");
@@ -33,7 +33,7 @@ public class DramaHandler {
 
   static void list() {
 
-    System.out.println("[드라마 목록]");
+    System.out.println("[감상한 드라마 목록보기]");
 
     for (int i = 0; i < dsize; i++) {
       System.out.printf("%s, %s, %s, %s, %s, %s, %s\n", 

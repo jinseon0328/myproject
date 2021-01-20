@@ -17,9 +17,7 @@ public class MovieHandler {
 
   static void add() {
 
-    System.out.println("[영화 기록]");
-
-
+    System.out.println("[감상한 영화 기록하기]");
 
     title[size] = Prompt.inputString("제목: ");
     director[size] = Prompt.inputString("감독: ");
@@ -34,7 +32,7 @@ public class MovieHandler {
 
 
   static void list() {
-    System.out.println("[영화 리스트]");
+    System.out.println("[감상한 영화 목록보기]");
 
     for (int i = 0; i < size; i++) {
       System.out.printf("%s, %s, %s, %s, %s, %s, %s, %s\n",
