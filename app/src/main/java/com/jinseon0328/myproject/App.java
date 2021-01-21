@@ -1,10 +1,11 @@
 package com.jinseon0328.myproject;
-
 import com.jinseon0328.myproject.handler.DramaHandler;
 import com.jinseon0328.myproject.handler.MovieHandler;
 import com.jinseon0328.util.Prompt;
 
 public class App {
+  //넷플릭스나 유투브 기록도 추후에 넣을 예정
+  //다른 것들도 추가할지 생각해 볼 것!
 
   public static void main(String[] args) {
 
