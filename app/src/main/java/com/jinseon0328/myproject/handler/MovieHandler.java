@@ -6,6 +6,9 @@ public class MovieHandler {
 
   static class Movie {
 
+    Date when;
+    String withWho;
+    String where;
     String title;
     String director;
     String cast;
@@ -23,10 +26,13 @@ public class MovieHandler {
 
   public static void add() {
 
-    System.out.println("[감상한 영화 기록하기]");
+    System.out.println("[영화 기록하기]");
 
     Movie m = new Movie();
 
+    m.when = Prompt.inputDate("언제: "); 
+    m.withWho = Prompt.inputString("누구와 함께: ");
+    m.where = Prompt.inputString("영화관: ");
     m.title = Prompt.inputString("제목: ");
     m.director = Prompt.inputString("감독: ");
     m.cast = Prompt.inputString("출연: ");
@@ -35,15 +41,18 @@ public class MovieHandler {
     m.synop = Prompt.inputString("줄거리: ");
     m.myRating = Prompt.inputString("별점: ");
     m.registeredDate = new java.sql.Date(System.currentTimeMillis());
+
     movies[size++] = m;
   }
 
 
   public static void list() {
-    System.out.println("[감상한 영화 목록보기]");
+    System.out.println("[영화 목록보기]");
     for (int i = 0; i < size; i++) {
       Movie m =  movies[i];
-      System.out.printf("%s, %s, %s, %s, %s, %s, %s, %s\n",
+      System.out.printf("%s, %s, %s,\n"
+          + "%s, %s, %s,\n" + "%s, %s,\n" +"%s,\n" + "%s, %s\n",
+          m.when, m.withWho, m.where,
           m.title, m.director, m.cast, m.runningTime, m.releaseDate, 
           m.synop, m.myRating, m.registeredDate);
 

@@ -5,14 +5,34 @@ import com.jinseon0328.util.Prompt;
 
 public class App {
 
+  /* System.out.println("My Film Book: ");
+  System.out.println("\t나의 영상기록 보관함\n");
+  System.out.println();
+
+  System.out.print("1. CGV [씨지브이]\n");
+  System.out.print("2. 메가박스 [megabox]\n");
+  System.out.print("3. 롯데시네마 [lettecinema]\n");
+  System.out.print("4. Netflix [넷플릭스]\n");
+  System.out.print("5. 왓챠 [watcha]\n");
+  System.out.println();
+  System.out.print("\t-모든 메뉴 선택은 숫자로 해주세요\n");
+  System.out.print("> ");*/
+  /* 
+   * 방식 때문에 고민중...
+   */
+
+
   public static void main(String[] args) {
 
     loop:
       while (true) {
         System.out.println("My Film Book: ");
-        System.out.println("1. 감상한 영화 기록하기\n2. 감상한 영화 목록보기\n"
-            +"3. 감상한 드라마 기록하기\n4. 감상한 드라마 목록보기\n");
-        System.out.println("[모든 메뉴 선택은 숫자로 해주세요.]");
+        System.out.print("1. 영화 기록\n");
+        System.out.print("2. 영화 목록\n");
+        System.out.print("3. 드라마 기록\n");
+        System.out.print("4. 드라마 목록\n");
+        System.out.println();
+        System.out.print("\t-모든 메뉴 선택은 숫자로 해주세요\n");
         String command = Prompt.inputString("> ");
 
         switch (command) {
