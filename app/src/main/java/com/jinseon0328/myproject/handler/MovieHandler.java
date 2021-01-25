@@ -1,30 +1,14 @@
 package com.jinseon0328.myproject.handler;
-import java.sql.Date;
+import com.jinseon0328.myproject.domain.Movie;
 import com.jinseon0328.util.Prompt;
 
 public class MovieHandler {
 
-  static class Movie {
-
-    Date when;
-    String withWho;
-    String where;
-    String title;
-    String director;
-    String cast;
-    String runningTime;
-    Date releaseDate;
-    String synop;
-    String myRating;
-    Date registeredDate;
-
-  }
-
   static final int NUMBER = 100;
-  static Movie[] movies = new Movie[NUMBER]; 
-  static int size = 0;
+  Movie[] movies = new Movie[NUMBER]; 
+  int size = 0;
 
-  public static void add() {
+  public void add() {
 
     System.out.println("[영화 기록하기]");
 
@@ -42,14 +26,14 @@ public class MovieHandler {
     m.myRating = Prompt.inputString("별점: ");
     m.registeredDate = new java.sql.Date(System.currentTimeMillis());
 
-    movies[size++] = m;
+    this.movies[this.size++] = m;
   }
 
 
-  public static void list() {
+  public void list() {
     System.out.println("[영화 목록보기]");
-    for (int i = 0; i < size; i++) {
-      Movie m =  movies[i];
+    for (int i = 0; i < this.size; i++) {
+      Movie m =  this.movies[i];
       System.out.printf("%s, %s, %s,\n"
           + "%s, %s, %s,\n" + "%s, %s,\n" +"%s,\n" + "%s, %s\n",
           m.when, m.withWho, m.where,

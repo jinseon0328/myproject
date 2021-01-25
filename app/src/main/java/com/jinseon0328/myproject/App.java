@@ -22,7 +22,11 @@ public class App {
    */
 
 
+
   public static void main(String[] args) {
+
+    DramaHandler dramaList = new DramaHandler();
+    MovieHandler movieList = new MovieHandler();
 
     loop:
       while (true) {
@@ -37,16 +41,16 @@ public class App {
 
         switch (command) {
           case "1":
-            MovieHandler.add();
+            movieList.add();
             break;
           case "2":
-            MovieHandler.list();
+            movieList.list();
             break;
           case "3":
-            DramaHandler.add();
+            dramaList.add();
             break;
           case "4":
-            DramaHandler.list();
+            dramaList.list();
             break;
           case "quit":
           case "exit":

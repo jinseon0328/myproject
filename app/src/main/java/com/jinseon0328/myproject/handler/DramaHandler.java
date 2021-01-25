@@ -1,29 +1,14 @@
 package com.jinseon0328.myproject.handler;
-import java.sql.Date;
+import com.jinseon0328.myproject.domain.Drama;
 import com.jinseon0328.util.Prompt;
-
 
 public class DramaHandler {
 
-  static class Drama {
-    Date when;
-    String withWho;
-    String where;
-    String title;
-    String director;
-    String cast;
-    String writer;
-    String synop;
-    String myRating;
-    Date registeredDate;
-
-  }
-
   static final int NUMBER = 100;
-  static Drama[] dramas = new Drama[NUMBER];
-  static int size = 0;
+  Drama[] dramas = new Drama[NUMBER];
+  int size = 0;
 
-  public static void add() {
+  public void add() {
 
     System.out.println("[드라마 기록하기]");
 
@@ -41,16 +26,16 @@ public class DramaHandler {
     d.registeredDate = new java.sql.Date(System.currentTimeMillis());
 
 
-    dramas[size++] = d;
+    this.dramas[this.size++] = d;
 
   }
 
-  public static void list() {
+  public void list() {
 
     System.out.println("[드라마 목록보기]");
 
-    for (int i = 0; i < size; i++) {
-      Drama d = dramas[i];
+    for (int i = 0; i < this.size; i++) {
+      Drama d = this.dramas[i];
       System.out.printf("%s, %s, %s\n," + "%s, %s, %s, %s,\n"
           + "%s,\n" +"%s, %s\n", 
           d.when, d.withWho, d.where, 
