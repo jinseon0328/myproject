@@ -45,6 +45,13 @@ public class DramaHandler {
     }
 
   }
-
+  public boolean exist(String title) {
+    for (int i = 0; i < this.size; i++) {
+      if (title.equals(this.dramas[i].title)) {
+        return true;
+      }
+    }
+    return false;
+  }
 }
 

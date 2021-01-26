@@ -43,6 +43,14 @@ public class MovieHandler {
     }
 
   }
+  public boolean exist(String title) {
+    for (int i = 0; i < this.size; i++) {
+      if (title.equals(this.movies[i].title)) {
+        return true;
+      }
+    }
+    return false;
+  }
 
 }
 
