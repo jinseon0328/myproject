@@ -1,4 +1,5 @@
 package com.jinseon0328.myproject;
+import com.jinseon0328.myproject.handler.BoardHandler;
 import com.jinseon0328.myproject.handler.DramaHandler;
 import com.jinseon0328.myproject.handler.MovieHandler;
 import com.jinseon0328.util.Prompt;
@@ -22,11 +23,11 @@ public class App {
    */
 
 
-
   public static void main(String[] args) {
 
     DramaHandler dramaList = new DramaHandler();
     MovieHandler movieList = new MovieHandler();
+    BoardHandler boardList = new BoardHandler();
 
     loop:
       while (true) {
@@ -35,6 +36,8 @@ public class App {
         System.out.print("2. 영화 목록\n");
         System.out.print("3. 드라마 기록\n");
         System.out.print("4. 드라마 목록\n");
+        System.out.print("5. 영화 추천\n");
+        System.out.print("6. 추천한 영화\n");
         System.out.println();
         System.out.print("\t-모든 메뉴 선택은 숫자로 해주세요\n");
         String command = Prompt.inputString("> ");
@@ -51,6 +54,12 @@ public class App {
             break;
           case "4":
             dramaList.list();
+            break;
+          case "5":
+            boardList.add(movieList);
+            break;
+          case "6":
+            boardList.list();
             break;
           case "quit":
           case "exit":
