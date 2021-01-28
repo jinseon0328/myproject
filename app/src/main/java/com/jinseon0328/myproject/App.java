@@ -61,6 +61,10 @@ public class App {
           case "6":
             boardList.list();
             break;
+          case "7":
+            boardList.detail();
+          case "8":
+            boardList.update();
           case "quit":
           case "exit":
             System.out.println("close Book!");
