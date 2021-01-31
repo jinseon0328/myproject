@@ -32,6 +32,7 @@ public class App {
     loop:
       while (true) {
         System.out.println("My Film Book: ");
+        System.out.println("\t나의 영상기록 보관함\n");
         System.out.print("1. 영화 기록\n");
         System.out.print("2. 영화 목록\n");
         System.out.print("3. 드라마 기록\n");
