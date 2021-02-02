@@ -5,9 +5,8 @@ import com.jinseon0328.util.Prompt;
 
 public class BoardHandler {
 
-  static final int LENGTH = 100;
-  Board[] boards = new Board[LENGTH];   
-  int size = 0;
+  BoardList boardList = new BoardList();
+
 
   public void add(MovieHandler movieList) {
 
@@ -27,17 +26,17 @@ public class BoardHandler {
     b.reason = Prompt.inputString("추천 이유: ");
     b.registeredDate = new Date(System.currentTimeMillis());
 
-    boards[this.size++] = b;
+    boardList.add(b);
 
-    System.out.println("추천 영화를 등록하였습니다.");
+    System.out.println("게시글을 등록하였습니다.");
   }
 
   public void list() {
     System.out.println("[추천한 영화 목록]");
 
-    for (int i = 0; i < this.size; i++) {
-      Board b = this.boards[i];
-      // 번호, 제목, 등록일, 작성자, 조회수, 좋아요
+    Board[] boards = boardList.toArray();
+    for (Board b : boards) {
+      // 영화 제목, 작성자, 등록일, 조회수, 좋아요
       System.out.printf("%s, %s, %s, %d, %d\n",  
           b.name, 
           b.writer,
@@ -52,7 +51,7 @@ public class BoardHandler {
 
     String name = Prompt.inputString("제목: ");
 
-    Board board = findByName(name);
+    Board board =  boardList.get(name);
     if (board == null) {
       System.out.println("해당 영화가 없습니다.");
       return;
@@ -71,7 +70,7 @@ public class BoardHandler {
 
     String name = Prompt.inputString("제목: ");
 
-    Board board = findByName(name);
+    Board board = boardList.get(name);
     if (board == null) {
       System.out.println("해당 영화가 없습니다.");
       return;
@@ -91,24 +90,28 @@ public class BoardHandler {
       System.out.println("게시글 변경을 취소하였습니다.");
     }
   }
-  // 영화 이름에 해당하는 인스턴스를 배열에서 찾아 그 인덱스를 리턴한다. 
-  int indexOf(String boardName) {
-    for (int i = 0; i < this.size; i++) {
-      Board board = this.boards[i];
-      if (board.name == boardName) {
-        return i;
-      }
-    }
-    return -1;
-  }
 
-  // 영화 이름에 해당하는 인스턴스를 찾아 리턴한다.
-  Board findByName(String boardName) {
-    int i = indexOf(boardName);
-    if (i == -1) 
-      return null;
-    else 
-      return this.boards[i];
+  public void delete() {
+    System.out.println("[추천 영화 삭제]");
+
+    String name = Prompt.inputString("제목? ");
+
+    Board board = boardList.get(name);
+    if (board == null) {
+      System.out.println("해당 영화의 추천글이 없습니다.");
+      return;
+    }
+
+    String input = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
+
+    if (input.equalsIgnoreCase("Y")) {
+      boardList.delete(name);
+
+      System.out.println("게시글을 삭제하였습니다.");
+
+    } else {
+      System.out.println("게시글 삭제를 취소하였습니다.");
+    }
+
   }
 }
-
