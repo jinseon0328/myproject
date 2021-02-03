@@ -1,10 +1,52 @@
 package com.jinseon0328.myproject.handler;
 import com.jinseon0328.myproject.domain.Movie;
+import com.jinseon0328.util.List;
 import com.jinseon0328.util.Prompt;
 
 public class MovieHandler {
 
-  public MovieList movieList = new MovieList();
+  public void service() {
+    loop:
+      while (true) {
+        System.out.println("My Movie: ");
+        System.out.println("\t나의 영화기록 보관함\n");
+        System.out.println("1. 영화 기록하기");
+        System.out.println("2. 영화 목록보기");
+        System.out.println("3. 영화 상세보기");
+        System.out.println("4. 기록한 영화 변경하기");
+        System.out.println("5. 기록한 영화 삭제하기");
+        System.out.println("0. 되돌아가기");
+
+        String command = com.jinseon0328.util.Prompt.inputString("> ");
+        System.out.println();
+
+        switch (command) {
+          case "1":
+            this.add();
+            break;
+          case "2":
+            this.list();
+            break;
+          case "3":
+            this.detail();
+            break;
+          case "4":
+            this.update();
+            break;
+          case "5":
+            this.delete();
+            break;
+          case "0":
+            break loop;
+          default:
+            System.out.println("잘못된 선택입니다.");
+            System.out.println("다시 입력해주세요.");
+        }
+        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+      }
+  }
+
+  public List movieList = new List();
 
   public void add() {
 
@@ -12,31 +54,34 @@ public class MovieHandler {
 
     Movie m = new Movie();
 
-    m.when = Prompt.inputDate("언제: "); 
-    m.withWho = Prompt.inputString("누구와 함께: ");
-    m.where = Prompt.inputString("영화관: ");
-    m.title = Prompt.inputString("제목: ");
-    m.director = Prompt.inputString("감독: ");
-    m.cast = Prompt.inputString("출연: ");
-    m.runningTime = Prompt.inputString("상영시간: ");
-    m.releaseDate = Prompt.inputDate("개봉일: ");
-    m.synop = Prompt.inputString("줄거리: ");
-    m.myRating = Prompt.inputString("별점: ");
-    m.registeredDate = new java.sql.Date(System.currentTimeMillis());
+    m.setWhen(Prompt.inputDate("언제: ")); 
+    m.setWithWho(Prompt.inputString("누구와 함께: "));
+    m.setWhere(Prompt.inputString("영화관: "));
+    m.setTitle(Prompt.inputString("제목: "));
+    m.setDirector(Prompt.inputString("감독: "));
+    m.setCast(Prompt.inputString("출연: "));
+    m.setRunningTime(Prompt.inputString("상영시간: "));
+    m.setReleaseDate(Prompt.inputDate("개봉일: "));
+    m.setSynop(Prompt.inputString("줄거리: "));
+    m.setMyRating(Prompt.inputString("별점: "));
+    m.setRegisteredDate(new java.sql.Date(System.currentTimeMillis()));
 
     movieList.add(m);
   }
 
 
   public void list() {
+
     System.out.println("[영화 목록보기]");
-    Movie[] movies = movieList.toArray();
-    for (Movie m : movies) {
+
+    Object[] list = movieList.toArray();
+    for (Object obj : list) {
+      Movie m = (Movie) obj;
       System.out.printf("%s, %s, %s,\n"
           + "%s, %s, %s,\n" + "%s, %s,\n" +"%s,\n" + "%s, %s\n",
-          m.when, m.withWho, m.where,
-          m.title, m.director, m.cast, m.runningTime, m.releaseDate, 
-          m.synop, m.myRating, m.registeredDate);
+          m.getWhen(), m.getWithWho(), m.getWhere(),
+          m.getTitle(), m.getDirector(), m.getCast(), m.getRunningTime(), m.getReleaseDate(), 
+          m.getSynop(), m.getMyRating(), m.getRegisteredDate());
     }
   }
 
@@ -45,18 +90,18 @@ public class MovieHandler {
 
     String title = Prompt.inputString("제목: ");
 
-    Movie movie = movieList.get(title);
+    Movie movie = findByNo(title);
 
     if (movie == null) {
       System.out.println("해당 제목의 영화가 없습니다.");
       return;
     }
 
-    System.out.printf("제목: %s\n", movie.title);
-    System.out.printf("언제: %s\n", movie.when);
-    System.out.printf("누구와 함께: %s\n", movie.withWho);
-    System.out.printf("영화관: %s\n", movie.where);
-    System.out.printf("기록일: %s\n", movie.registeredDate);
+    System.out.printf("제목: %s\n", movie.getTitle());
+    System.out.printf("언제: %s\n", movie.getWhen());
+    System.out.printf("누구와 함께: %s\n", movie.getWithWho());
+    System.out.printf("영화관: %s\n", movie.getWhere());
+    System.out.printf("기록일: %s\n", movie.getRegisteredDate());
 
   }
 
@@ -65,30 +110,30 @@ public class MovieHandler {
 
     String title = Prompt.inputString("제목: ");
 
-    Movie drama = movieList.get(title);
-    if (drama == null) {
+    Movie movie = findByNo(title);
+    if (movie == null) {
       System.out.println("해당 제목의 영화가 없습니다.");
       return;
     }
 
-    System.out.printf("제목: %s\n", drama.title);
-    System.out.printf("언제: %s\n", drama.when);
-    System.out.printf("누구와 함께: %s\n", drama.withWho);
-    System.out.printf("영화관: %s\n", drama.where);
-    System.out.printf("기록일: %s\n", drama.registeredDate);
+    System.out.printf("제목: %s\n", movie.getTitle());
+    System.out.printf("언제: %s\n", movie.getWhen());
+    System.out.printf("누구와 함께: %s\n", movie.getWithWho());
+    System.out.printf("영화관: %s\n", movie.getWhere());
+    System.out.printf("기록일: %s\n", movie.getRegisteredDate());
 
-    String title1 = Prompt.inputString(String.format("제목(%s): ", drama.title));
-    java.sql.Date when = Prompt.inputDate(String.format("언제(%s): ", drama.when));
-    String withWho = Prompt.inputString(String.format("누구와 함께(%s): ", drama.withWho));
-    String where = Prompt.inputString(String.format("플랫폼(%s): ", drama.where));
+    String title1 = Prompt.inputString(String.format("제목(%s): ", movie.getTitle()));
+    java.sql.Date when = Prompt.inputDate(String.format("언제(%s): ", movie.getWhen()));
+    String withWho = Prompt.inputString(String.format("누구와 함께(%s): ", movie.getWithWho()));
+    String where = Prompt.inputString(String.format("플랫폼(%s): ", movie.getWhere()));
 
     String input = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
 
     if (input.equalsIgnoreCase("Y")) {
-      drama.title = title1;
-      drama.when = when;
-      drama.withWho = withWho;
-      drama.where = where;
+      movie.setTitle(title1);
+      movie.setWhen(when);
+      movie.setWithWho(withWho);
+      movie.setWhere(where);
       System.out.println("영화를 변경하였습니다.");
 
     } else {
@@ -101,8 +146,8 @@ public class MovieHandler {
 
     String title = Prompt.inputString("제목: ");
 
-    Movie drama = movieList.get(title);
-    if (drama == null) {
+    Movie movie = findByNo(title);
+    if (movie == null) {
       System.out.println("해당 영화가 없습니다.");
       return;
     }
@@ -119,7 +164,63 @@ public class MovieHandler {
     }
 
   }
+
+  public String inputMovie(String promptTitle) {
+    while (true) {
+      String name = Prompt.inputString(promptTitle);
+      if (name.length() == 0) {
+        return null;
+      } 
+      if (findByName(name) != null) {
+        return name;
+      }
+      System.out.println("등록된 영화가 아닙니다.");
+    }
+  }
+
+  public String inputMovies(String promptTitle) {
+    String movies = "";
+    while (true) {
+      String name = inputMovies(promptTitle);
+      if (name == null) {
+        return movies;
+      } else {
+        if (!movies.isEmpty()) {
+          movies += ",";
+        }
+        movies += name;
+      }
+    }
+  }
+
+  private Movie findByNo(String MovieTitle) {
+    Object[] list = movieList.toArray();
+    for (Object obj : list) {
+      // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
+      Movie d = (Movie) obj;
+      if (d.getTitle() == MovieTitle) {
+        return d;
+      }
+    }
+    return null;
+  }
+
+  private Movie findByName(String title) {
+    Object[] list = movieList.toArray();
+    for (Object obj : list) {
+      // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
+      Movie m = (Movie) obj;
+      if (m.getTitle().equals(title)) {
+        return m;
+      }
+    }
+    return null;
+  }
 }
+
+
+
+
 
 
 
