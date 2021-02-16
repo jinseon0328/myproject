@@ -8,13 +8,83 @@ public class MovieHandler {
   public void service() {
     loop:
       while (true) {
-        System.out.println("My Movie: ");
-        System.out.println("\t나의 영화기록 보관함\n");
-        System.out.println("1. 영화 기록하기");
-        System.out.println("2. 영화 목록보기");
-        System.out.println("3. 영화 상세보기");
-        System.out.println("4. 기록한 영화 변경하기");
-        System.out.println("5. 기록한 영화 삭제하기");
+        System.out.println("나의 영화 기록 보관함");
+        System.out.println("\t\t:My Cinema\n ");
+        System.out.println("1. 본 영화");
+        System.out.println("2. 볼 영화");
+        System.out.println("0. 되돌아가기");
+
+        String command = com.jinseon0328.util.Prompt.inputString("> ");
+        System.out.println();
+
+        switch (command) {
+          case "1":
+            this.service2();
+            break;
+          case "2":
+            this.service3();
+            break;
+          case "0":
+            break loop;
+          default:
+            System.out.println("잘못된 선택입니다.");
+            System.out.println("다시 입력해주세요.");
+        }
+        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+      }
+  }
+
+  public void service2() {
+    loop:
+      while (true) {
+        System.out.println("이미 본 영화 기록");
+        System.out.println("\t\t:My Cinema\n ");
+        System.out.println("1. 영화 기록");
+        System.out.println("2. 영화 목록");
+        System.out.println("3. 영화 상세");
+        System.out.println("4. 영화 변경");
+        System.out.println("5. 영화 삭제");
+        System.out.println("0. 되돌아가기");
+
+        String command = com.jinseon0328.util.Prompt.inputString("> ");
+        System.out.println();
+
+        switch (command) {
+          case "1":
+            this.add();
+            break;
+          case "2":
+            this.list();
+            break;
+          case "3":
+            this.detail();
+            break;
+          case "4":
+            this.update();
+            break;
+          case "5":
+            this.delete();
+            break;
+          case "0":
+            break loop;
+          default:
+            System.out.println("잘못된 선택입니다.");
+            System.out.println("다시 입력해주세요.");
+        }
+        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+      }
+  }
+
+  public void service3() {
+    loop:
+      while (true) {
+        System.out.println("앞으로 볼 영화 기록");
+        System.out.println("\t\t:My Cinema\n ");
+        System.out.println("1. 영화 기록");
+        System.out.println("2. 영화 목록");
+        System.out.println("3. 영화 상세");
+        System.out.println("4. 영화 변경");
+        System.out.println("5. 영화 삭제");
         System.out.println("0. 되돌아가기");
 
         String command = com.jinseon0328.util.Prompt.inputString("> ");
@@ -50,21 +120,14 @@ public class MovieHandler {
 
   public void add() {
 
-    System.out.println("[영화 기록하기]");
+    System.out.println("[영화 기록]");
 
     Movie m = new Movie();
 
+    m.setTitle(Prompt.inputString("제목: "));
     m.setWhen(Prompt.inputDate("언제: ")); 
     m.setWithWho(Prompt.inputString("누구와 함께: "));
-    m.setWhere(Prompt.inputString("영화관: "));
-    m.setTitle(Prompt.inputString("제목: "));
-    m.setDirector(Prompt.inputString("감독: "));
-    m.setCast(Prompt.inputString("출연: "));
-    m.setRunningTime(Prompt.inputString("상영시간: "));
-    m.setReleaseDate(Prompt.inputDate("개봉일: "));
-    m.setSynop(Prompt.inputString("줄거리: "));
     m.setMyRating(Prompt.inputString("별점: "));
-    m.setRegisteredDate(new java.sql.Date(System.currentTimeMillis()));
 
     movieList.add(m);
   }
@@ -72,21 +135,18 @@ public class MovieHandler {
 
   public void list() {
 
-    System.out.println("[영화 목록보기]");
+    System.out.println("[영화 목록]");
 
     Object[] list = movieList.toArray();
     for (Object obj : list) {
       Movie m = (Movie) obj;
-      System.out.printf("%s, %s, %s,\n"
-          + "%s, %s, %s,\n" + "%s, %s,\n" +"%s,\n" + "%s, %s\n",
-          m.getWhen(), m.getWithWho(), m.getWhere(),
-          m.getTitle(), m.getDirector(), m.getCast(), m.getRunningTime(), m.getReleaseDate(), 
-          m.getSynop(), m.getMyRating(), m.getRegisteredDate());
+      System.out.printf("%s, %s, %s, %s\n",
+          m.getTitle(), m.getWhen(), m.getWithWho(), m.getMyRating());
     }
   }
 
   public void detail() {
-    System.out.println("[영화 기록 상세보기]");
+    System.out.println("[영화 상세 기록]");
 
     String title = Prompt.inputString("제목: ");
 
@@ -98,9 +158,12 @@ public class MovieHandler {
     }
 
     System.out.printf("제목: %s\n", movie.getTitle());
-    System.out.printf("언제: %s\n", movie.getWhen());
-    System.out.printf("누구와 함께: %s\n", movie.getWithWho());
     System.out.printf("영화관: %s\n", movie.getWhere());
+    System.out.printf("감독: %s\n", movie.getDirector());
+    System.out.printf("출연: %s\n", movie.getCast());
+    System.out.printf("상영시간: %s\n", movie.getRunningTime());
+    System.out.printf("개봉일: %s\n", movie.getReleaseDate());
+    System.out.printf("감상: %s\n", movie.getSynop());
     System.out.printf("기록일: %s\n", movie.getRegisteredDate());
 
   }
@@ -197,9 +260,9 @@ public class MovieHandler {
     Object[] list = movieList.toArray();
     for (Object obj : list) {
       // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
-      Movie d = (Movie) obj;
-      if (d.getTitle() == MovieTitle) {
-        return d;
+      Movie m = (Movie) obj;
+      if (m.getTitle() == MovieTitle) {
+        return m;
       }
     }
     return null;

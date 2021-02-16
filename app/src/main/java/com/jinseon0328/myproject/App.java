@@ -22,6 +22,7 @@ public class App {
    * 방식 때문에 고민중...
    */
 
+  // 사용자가 입력한 명령을 저장할 컬렉션 객체 준비
 
   public static void main(String[] args) {
 
@@ -53,7 +54,7 @@ public class App {
             boardHandler.service();
             break;
           case "0":
-            System.out.println("안녕!");
+            System.out.println("closed Book.");
             break loop;
           default:
             System.out.println("잘못된 선택입니다.");

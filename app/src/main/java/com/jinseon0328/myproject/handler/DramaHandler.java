@@ -8,13 +8,82 @@ public class DramaHandler {
   public void service() {
     loop:
       while (true) {
-        System.out.println("My Drama: ");
-        System.out.println("\t나의 드라마기록 보관함\n");
-        System.out.println("1. 드라마 기록하기");
-        System.out.println("2. 드라마 목록보기");
-        System.out.println("3. 드라마 상세보기");
-        System.out.println("4. 기록한 드라마 변경하기");
-        System.out.println("5. 기록한 드라마 삭제하기");
+        System.out.println("나의 드라마 기록 보관함");
+        System.out.println("\t\t:My Drama\n ");
+        System.out.println("1. 본 드라마");
+        System.out.println("2. 볼 드라마");
+
+        String command = com.jinseon0328.util.Prompt.inputString("> ");
+        System.out.println();
+
+        switch (command) {
+          case "1":
+            this.service2();
+            break;
+          case "2":
+            this.service3();
+            break;
+          case "0":
+            break loop;
+          default:
+            System.out.println("잘못된 선택입니다.");
+            System.out.println("다시 입력해주세요.");
+        }
+        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+      }
+  }
+
+  public void service2() {
+    loop:
+      while (true) {
+        System.out.println("이미 본 드라마 기록");
+        System.out.println("\t\t:My Drama\n ");
+        System.out.println("1. 드라마 기록");
+        System.out.println("2. 드라마 목록");
+        System.out.println("3. 드라마 상세");
+        System.out.println("4. 드라마 변경");
+        System.out.println("5. 드라마 삭제");
+        System.out.println("0. 되돌아가기");
+
+        String command = com.jinseon0328.util.Prompt.inputString("> ");
+        System.out.println();
+
+        switch (command) {
+          case "1":
+            this.add();
+            break;
+          case "2":
+            this.list();
+            break;
+          case "3":
+            this.detail();
+            break;
+          case "4":
+            this.update();
+            break;
+          case "5":
+            this.delete();
+            break;
+          case "0":
+            break loop;
+          default:
+            System.out.println("잘못된 선택입니다.");
+            System.out.println("다시 입력해주세요.");
+        }
+        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+      }
+  }
+
+  public void service3() {
+    loop:
+      while (true) {
+        System.out.println("앞으로 볼 드라마 기록");
+        System.out.println("\t\t:My Drama\n ");
+        System.out.println("1. 드라마 기록");
+        System.out.println("2. 드라마 목록");
+        System.out.println("3. 드라마 상세");
+        System.out.println("4. 드라마 변경");
+        System.out.println("5. 드라마 삭제");
         System.out.println("0. 되돌아가기");
 
         String command = com.jinseon0328.util.Prompt.inputString("> ");
