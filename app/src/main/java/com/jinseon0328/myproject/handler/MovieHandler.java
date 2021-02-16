@@ -261,7 +261,7 @@ public class MovieHandler {
     for (Object obj : list) {
       // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
       Movie m = (Movie) obj;
-      if (m.getTitle() == MovieTitle) {
+      if (m.getTitle().equals(MovieTitle)) {
         return m;
       }
     }
