@@ -20,27 +20,34 @@ public class BoardHandler {
 
         String command = com.jinseon0328.util.Prompt.inputString("> ");
         System.out.println();
-
-        switch (command) {
-          case "1":
-            movieHandler.add();
-            break;
-          case "2":
-            movieHandler.list();
-            break;
-          case "3":
-            movieHandler.detail();
-            break;
-          case "4":
-            movieHandler.update();
-            break;
-          case "5":
-            movieHandler.delete();
-            break;
-          case "0":
-            break loop;
-          default:
-            System.out.println("메뉴 번호가 맞지 않습니다.");
+        try {
+          // 트라이블럭으로 예외를 장벽을 막았다
+          switch (command) {
+            case "1":
+              movieHandler.add();
+              break;
+            case "2":
+              movieHandler.list();
+              break;
+            case "3":
+              movieHandler.detail();
+              break;
+            case "4":
+              movieHandler.update();
+              break;
+            case "5":
+              movieHandler.delete();
+              break;
+            case "0":
+              break loop;
+            default:
+              System.out.println("메뉴 번호가 맞지 않습니다.");
+          }
+        } catch (Exception e) {
+          System.out.println("------------------------------------------------");
+          System.out.printf("명령어 실행 중 오류 발생 :%s - %s\n", 
+              e.getClass().getName(), e.getMessage());
+          System.out.println("------------------------------------------------");
         }
         System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
       }
