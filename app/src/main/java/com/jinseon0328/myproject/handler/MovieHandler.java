@@ -197,18 +197,17 @@ public class MovieHandler {
 
     System.out.printf("언제: %s\n", movie.getWhen());
     System.out.printf("누구와 함께: %s\n", movie.getWithWho());
-    System.out.printf("제목: %s\n", movie.getTitle());
     System.out.printf("평점: %s\n", movie.getMyRating());
+
 
     java.sql.Date when = Prompt.inputDate(String.format("언제: %s -> ", movie.getWhen()));
     String withWho = Prompt.inputString(String.format("누구와 함께: %s -> ", movie.getWithWho()));
-    String title1 = Prompt.inputString(String.format("제목: %s -> ", movie.getTitle()));
     String myRating = Prompt.inputString(String.format("평점: %s -> ", movie.getMyRating()));
 
     String input = Prompt.inputString("정말 변경하시겠습니까?(y/N) ");
 
     if (input.equalsIgnoreCase("Y")) {
-      movie.setTitle(title1);
+      movie.setTitle(title);
       movie.setWhen(when);
       movie.setWithWho(withWho);
       movie.setWhere(myRating);
