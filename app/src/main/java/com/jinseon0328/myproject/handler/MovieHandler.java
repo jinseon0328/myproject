@@ -10,6 +10,7 @@ public class MovieHandler {
       while (true) {
         System.out.println("나의 영화 기록 보관함");
         System.out.println("\t\t:My Cinema\n ");
+        System.out.println("\t\t:------------------- ");
         System.out.println("1. 본 영화");
         System.out.println("2. 볼 영화");
         System.out.println("0. 되돌아가기");
@@ -39,6 +40,7 @@ public class MovieHandler {
       while (true) {
         System.out.println("이미 본 영화 기록");
         System.out.println("\t\t:My Cinema\n ");
+        System.out.println("\t\t:------------------- ");
         System.out.println("1. 본 영화 기록");
         System.out.println("2. 본 영화 목록");
         System.out.println("3. 본 영화 상세");
@@ -88,6 +90,7 @@ public class MovieHandler {
       while (true) {
         System.out.println("앞으로 볼 영화 기록");
         System.out.println("\t\t:My Cinema\n ");
+        System.out.println("\t\t:------------------- ");
         System.out.println("1. 볼 영화 기록");
         System.out.println("2. 볼 영화 목록");
         System.out.println("3. 볼 영화 상세");
@@ -270,7 +273,7 @@ public class MovieHandler {
     }
   }
 
-  private Movie findByNo(String MovieTitle) {
+  public Movie findByNo(String MovieTitle) {
     Object[] list = movieList.toArray();
     for (Object obj : list) {
       // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
@@ -282,7 +285,7 @@ public class MovieHandler {
     return null;
   }
 
-  private Movie findByName(String title) {
+  public Movie findByName(String title) {
     Object[] list = movieList.toArray();
     for (Object obj : list) {
       // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.

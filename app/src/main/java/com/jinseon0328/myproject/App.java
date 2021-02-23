@@ -29,6 +29,7 @@ public class App {
     MovieHandler movieHandler = new MovieHandler();
     DramaHandler dramaHandler = new DramaHandler();
     BoardHandler boardHandler = new BoardHandler(movieHandler);
+    SearchHandler searchHander = new SearchHandler(movieHandler, dramaHandler);
 
     loop:
       while (true) {
@@ -37,6 +38,7 @@ public class App {
         System.out.print("1. 영화\n");
         System.out.print("2. 드라마\n");
         System.out.print("3. 작품 추천\n");
+        System.out.print("4. 작품 검색\n";
         System.out.println("0. 종료");
         System.out.println();
         System.out.print("\t-모든 메뉴 선택은 숫자로 해주세요\n");
@@ -53,6 +55,8 @@ public class App {
           case "3":
             boardHandler.service();
             break;
+          case "4" :
+            searchHandler.service();
           case "0":
             System.out.println("closed Book.");
             break loop;

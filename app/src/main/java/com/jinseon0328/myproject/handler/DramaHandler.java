@@ -10,6 +10,7 @@ public class DramaHandler {
       while (true) {
         System.out.println("나의 드라마 기록 보관함");
         System.out.println("\t\t:My Drama\n ");
+        System.out.println("\t\t:------------------- ");
         System.out.println("1. 본 드라마");
         System.out.println("2. 볼 드라마");
 
@@ -38,6 +39,7 @@ public class DramaHandler {
       while (true) {
         System.out.println("이미 본 드라마 기록");
         System.out.println("\t\t:My Drama\n ");
+        System.out.println("\t\t:------------------- ");
         System.out.println("1. 드라마 기록");
         System.out.println("2. 드라마 목록");
         System.out.println("3. 드라마 상세");
@@ -86,6 +88,7 @@ public class DramaHandler {
       while (true) {
         System.out.println("앞으로 볼 드라마 기록");
         System.out.println("\t\t:My Drama\n ");
+        System.out.println("\t\t:------------------- ");
         System.out.println("1. 드라마 기록");
         System.out.println("2. 드라마 목록");
         System.out.println("3. 드라마 상세");
@@ -277,7 +280,7 @@ public class DramaHandler {
     }
   }
 
-  private Drama findByNo(String dramaTitle) {
+  public Drama findByNo(String dramaTitle) {
     Object[] list = dramaList.toArray();
     for (Object obj : list) {
       // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
@@ -289,7 +292,7 @@ public class DramaHandler {
     return null;
   }
 
-  private Drama findByName(String title) {
+  public Drama findByName(String title) {
     Object[] list = dramaList.toArray();
     for (Object obj : list) {
       // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
@@ -302,7 +305,7 @@ public class DramaHandler {
   }
 
 
-  private List dramaList2 = new List();
+  public List dramaList2 = new List();
 
   public void add2() {
 
@@ -449,7 +452,7 @@ public class DramaHandler {
     }
   }
 
-  private Drama findByNo2(String dramaTitle) {
+  public Drama findByNo2(String dramaTitle) {
     Object[] list = dramaList.toArray();
     for (Object obj : list) {
       // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
@@ -461,7 +464,7 @@ public class DramaHandler {
     return null;
   }
 
-  private Drama findByName2(String title) {
+  public Drama findByName2(String title) {
     Object[] list = dramaList.toArray();
     for (Object obj : list) {
       // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
