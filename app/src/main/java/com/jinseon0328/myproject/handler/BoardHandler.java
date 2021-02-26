@@ -2,6 +2,7 @@ package com.jinseon0328.myproject.handler;
 import java.sql.Date;
 import com.jinseon0328.myproject.domain.Board;
 import com.jinseon0328.util.List;
+import com.jinseon0328.util.ListIterator;
 import com.jinseon0328.util.Prompt;
 
 public class BoardHandler {
@@ -21,7 +22,6 @@ public class BoardHandler {
         String command = com.jinseon0328.util.Prompt.inputString("> ");
         System.out.println();
         try {
-          // 트라이블럭으로 예외를 장벽을 막았다
           switch (command) {
             case "1":
               movieHandler.add();
@@ -49,7 +49,7 @@ public class BoardHandler {
               e.getClass().getName(), e.getMessage());
           System.out.println("------------------------------------------------");
         }
-        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+        System.out.println();
       }
   }
 
@@ -76,13 +76,13 @@ public class BoardHandler {
     System.out.println("게시글을 등록하였습니다.");
   }
 
-  public void list() {
+  public void list() throws CloneNotSupportedException {
     System.out.println("[추천한 영화 목록]");
 
-    Object[] list = boardList.toArray();
-    for (Object obj : list) {
-      Board b = (Board) obj;
-      // 영화 제목, 작성자, 등록일, 조회수, 좋아요
+    ListIterator iterator = new ListIterator(this.boardList);
+
+    while (iterator.hasNext()) {
+      Board b = (Board) iterator.next();
       System.out.printf("%s, %s, %s, %d, %d\n",  
           b.getName(), 
           b.getWriter(),
@@ -158,13 +158,11 @@ public class BoardHandler {
     } else {
       System.out.println("게시글 삭제를 취소하였습니다.");
     }
-
   }
 
   private Board findByNo(String boardName) {
     Object[] list = boardList.toArray();
     for (Object obj : list) {
-      // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
       Board b = (Board) obj;
       if (b.getName() == boardName) {
         return b;

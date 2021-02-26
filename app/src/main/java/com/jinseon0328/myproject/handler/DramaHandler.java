@@ -1,6 +1,8 @@
 package com.jinseon0328.myproject.handler;
+import java.util.ArrayList;
 import com.jinseon0328.myproject.domain.Drama;
 import com.jinseon0328.util.List;
+import com.jinseon0328.util.ListIterator;
 import com.jinseon0328.util.Prompt;
 
 public class DramaHandler {
@@ -30,7 +32,7 @@ public class DramaHandler {
             System.out.println("잘못된 선택입니다.");
             System.out.println("다시 입력해주세요.");
         }
-        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+        System.out.println(); 
       }
   }
 
@@ -50,7 +52,6 @@ public class DramaHandler {
         String command = com.jinseon0328.util.Prompt.inputString("> ");
         System.out.println();
         try {
-          // 트라이블럭으로 예외를 장벽을 막았다
           switch (command) {
             case "1":
               this.add();
@@ -79,7 +80,7 @@ public class DramaHandler {
               e.getClass().getName(), e.getMessage());
           System.out.println("------------------------------------------------");
         }
-        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+        System.out.println(); 
       }
   }
 
@@ -100,7 +101,7 @@ public class DramaHandler {
         System.out.println();
 
         try {
-          // 트라이블럭으로 예외를 장벽을 막았다
+
           switch (command) {
             case "1":
               this.add();
@@ -129,7 +130,7 @@ public class DramaHandler {
               e.getClass().getName(), e.getMessage());
           System.out.println("------------------------------------------------");
         }
-        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+        System.out.println(); 
       }
   }
 
@@ -158,12 +159,11 @@ public class DramaHandler {
 
 
   public void list() {
-
     System.out.println("[드라마 목록보기]");
 
-    Object[] list = dramaList.toArray();
-    for (Object obj : list) {
-      Drama d = (Drama) obj;
+    ListIterator iterator = new ListIterator(this.dramaList);
+    while(iterator.hasNext()) {
+      Drama d = (Drama) iterator.next();
       System.out.printf("%s, %s, %s\n," + "%s, %s, %s, %s,\n"
           + "%s,\n" +"%s, %s\n", 
           d.getWhen(), d.getWithWho(), d.getWhere(), 
@@ -424,6 +424,28 @@ public class DramaHandler {
     }
 
   }
+
+
+  public void search() {
+    String keyword = Prompt.inputString("드라마를 검색하세요. ");
+
+    if(keyword.length() == 0) {
+      System.out.println("검색어를 입력하세요.");
+      return;
+    }
+    ArrayList<Drama> list = new ArrayList<>();
+
+    Drama[] movies = dramaList.toArray(new Drama[dramaList.size()]);
+    for (Drama d : dramas) {
+      if (d.getTitle().contains(keyword) ||
+          d.getDirector().contains(keyword) ||
+          d.getCast().contains(keyword)) {
+        list.add(d);
+      }
+    }
+  }
+
+
   public String inputDrama2(String promptTitle) {
     while (true) {
       String name = Prompt.inputString(promptTitle);
@@ -455,7 +477,6 @@ public class DramaHandler {
   public Drama findByNo2(String dramaTitle) {
     Object[] list = dramaList.toArray();
     for (Object obj : list) {
-      // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
       Drama d = (Drama) obj;
       if (d.getTitle().equals(dramaTitle)) {
         return d;
@@ -467,7 +488,6 @@ public class DramaHandler {
   public Drama findByName2(String title) {
     Object[] list = dramaList.toArray();
     for (Object obj : list) {
-      // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
       Drama d = (Drama) obj;
       if (d.getTitle().equals(title)) {
         return d;

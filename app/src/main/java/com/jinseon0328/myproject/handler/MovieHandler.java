@@ -1,6 +1,9 @@
 package com.jinseon0328.myproject.handler;
+import java.util.ArrayList;
+import java.util.Iterator;
 import com.jinseon0328.myproject.domain.Movie;
 import com.jinseon0328.util.List;
+import com.jinseon0328.util.ListIterator;
 import com.jinseon0328.util.Prompt;
 
 public class MovieHandler {
@@ -31,7 +34,7 @@ public class MovieHandler {
             System.out.println("잘못된 선택입니다.");
             System.out.println("다시 입력해주세요.");
         }
-        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+        System.out.println(); 
       }
   }
 
@@ -79,7 +82,7 @@ public class MovieHandler {
           System.out.printf("명령어 실행 중 오류 발생 :%s - %s\n", 
               e.getClass().getName(), e.getMessage());
         }
-        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+        System.out.println(); 
       }
   }
 
@@ -131,11 +134,11 @@ public class MovieHandler {
               e.getClass().getName(), e.getMessage());
           System.out.println("------------------------------------------------");
         }
-        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+        System.out.println(); 
       }
   }
 
-  public List movieList = new List();
+  private ArrayList<Movie> movieList = new ArrayList<>();
 
   public void add() {
 
@@ -152,13 +155,14 @@ public class MovieHandler {
   }
 
 
-  public void list() {
+  public void list() throws CloneNotSupportedException {
 
     System.out.println("[영화 목록]");
 
-    Object[] list = movieList.toArray();
-    for (Object obj : list) {
-      Movie m = (Movie) obj;
+    Iterator<Movie> iterator = movieList.iterator();
+
+    while (iterator.hasNext()) {
+      Movie m = iterator.next();
       System.out.printf("<%s> %s with %s, %s점\n",
           m.getTitle(), m.getWhen(), m.getWithWho(),  m.getMyRating());
     }
@@ -235,15 +239,34 @@ public class MovieHandler {
     String input = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
 
     if (input.equalsIgnoreCase("Y")) {
-      movieList.delete(title);
+      movieList.remove(title);
 
       System.out.println("영화를 삭제하였습니다.");
 
     } else {
       System.out.println("영화 삭제를 취소하였습니다.");
     }
-
   }
+
+  public void search() {
+    String keyword = Prompt.inputString("영화를 검색하세요. ");
+
+    if(keyword.length() == 0) {
+      System.out.println("검색어를 입력하세요.");
+      return;
+    }
+    ArrayList<Movie> list = new ArrayList<>();
+
+    Movie[] movies = movieList.toArray(new MovieList.size()]);
+    for (Movie m : movies) {
+      if (m.getTitle().contains(keyword) ||
+          m.getDirector().contains(keyword) ||
+          m.getCast().contains(keyword)) {
+        list.add(m);
+      }
+    }
+  }
+
 
   public String inputMovie(String promptTitle) {
     while (true) {
@@ -276,7 +299,6 @@ public class MovieHandler {
   public Movie findByNo(String MovieTitle) {
     Object[] list = movieList.toArray();
     for (Object obj : list) {
-      // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
       Movie m = (Movie) obj;
       if (m.getTitle().equals(MovieTitle)) {
         return m;
@@ -288,7 +310,6 @@ public class MovieHandler {
   public Movie findByName(String title) {
     Object[] list = movieList.toArray();
     for (Object obj : list) {
-      // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
       Movie m = (Movie) obj;
       if (m.getTitle().equals(title)) {
         return m;
@@ -450,7 +471,6 @@ public class MovieHandler {
   private Movie findByName2(String title) {
     Object[] list = movieList2.toArray();
     for (Object obj : list) {
-      // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
       Movie m = (Movie) obj;
       if (m.getTitle().equals(title)) {
         return m;
