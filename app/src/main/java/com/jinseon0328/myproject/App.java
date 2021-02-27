@@ -6,30 +6,12 @@ import com.jinseon0328.util.Prompt;
 
 public class App {
 
-  /* System.out.println("My Film Book: ");
-  System.out.println("\t나의 영상기록 보관함\n");
-  System.out.println();
-
-  System.out.print("1. CGV [씨지브이]\n");
-  System.out.print("2. 메가박스 [megabox]\n");
-  System.out.print("3. 롯데시네마 [lettecinema]\n");
-  System.out.print("4. Netflix [넷플릭스]\n");
-  System.out.print("5. 왓챠 [watcha]\n");
-  System.out.println();
-  System.out.print("\t-모든 메뉴 선택은 숫자로 해주세요\n");
-  System.out.print("> ");*/
-  /* 
-   * 방식 때문에 고민중...
-   */
-
-  // 사용자가 입력한 명령을 저장할 컬렉션 객체 준비
 
   public static void main(String[] args) {
 
     MovieHandler movieHandler = new MovieHandler();
     DramaHandler dramaHandler = new DramaHandler();
     BoardHandler boardHandler = new BoardHandler(movieHandler);
-    SearchHandler searchHander = new SearchHandler(movieHandler, dramaHandler);
 
     loop:
       while (true) {
@@ -38,7 +20,6 @@ public class App {
         System.out.print("1. 영화\n");
         System.out.print("2. 드라마\n");
         System.out.print("3. 작품 추천\n");
-        System.out.print("4. 작품 검색\n";
         System.out.println("0. 종료");
         System.out.println();
         System.out.print("\t-모든 메뉴 선택은 숫자로 해주세요\n");
@@ -55,15 +36,13 @@ public class App {
           case "3":
             boardHandler.service();
             break;
-          case "4" :
-            searchHandler.service();
           case "0":
             System.out.println("closed Book.");
             break loop;
           default:
             System.out.println("잘못된 선택입니다.");
         }
-        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+        System.out.println(); 
       }
 
     Prompt.close();

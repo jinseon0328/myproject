@@ -1,5 +1,6 @@
 package com.jinseon0328.myproject.handler;
 import com.jinseon0328.myproject.domain.Movie;
+import com.jinseon0328.util.Iterator;
 import com.jinseon0328.util.List;
 import com.jinseon0328.util.Prompt;
 
@@ -9,8 +10,8 @@ public class MovieHandler {
     loop:
       while (true) {
         System.out.println("나의 영화 기록 보관함");
-        System.out.println("\t\t:My Cinema\n ");
-        System.out.println("\t\t:------------------- ");
+        System.out.print("\t\t: My Cinema\n ");
+        System.out.println("\t\t------------ ");
         System.out.println("1. 본 영화");
         System.out.println("2. 볼 영화");
         System.out.println("0. 되돌아가기");
@@ -31,7 +32,7 @@ public class MovieHandler {
             System.out.println("잘못된 선택입니다.");
             System.out.println("다시 입력해주세요.");
         }
-        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+        System.out.println(); 
       }
   }
 
@@ -39,8 +40,8 @@ public class MovieHandler {
     loop:
       while (true) {
         System.out.println("이미 본 영화 기록");
-        System.out.println("\t\t:My Cinema\n ");
-        System.out.println("\t\t:------------------- ");
+        System.out.print("\t\t:My Cinema\n ");
+        System.out.println("\t\t------------ ");
         System.out.println("1. 본 영화 기록");
         System.out.println("2. 본 영화 목록");
         System.out.println("3. 본 영화 상세");
@@ -79,7 +80,7 @@ public class MovieHandler {
           System.out.printf("명령어 실행 중 오류 발생 :%s - %s\n", 
               e.getClass().getName(), e.getMessage());
         }
-        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+        System.out.println(); 
       }
   }
 
@@ -89,8 +90,8 @@ public class MovieHandler {
 
       while (true) {
         System.out.println("앞으로 볼 영화 기록");
-        System.out.println("\t\t:My Cinema\n ");
-        System.out.println("\t\t:------------------- ");
+        System.out.printf("\t\t:My Cinema\n ");
+        System.out.println("\t\t------------ ");
         System.out.println("1. 볼 영화 기록");
         System.out.println("2. 볼 영화 목록");
         System.out.println("3. 볼 영화 상세");
@@ -131,7 +132,7 @@ public class MovieHandler {
               e.getClass().getName(), e.getMessage());
           System.out.println("------------------------------------------------");
         }
-        System.out.println(); // 이전 명령의 실행을 구분하기 위해 빈 줄 출력
+        System.out.println(); 
       }
   }
 
@@ -147,6 +148,11 @@ public class MovieHandler {
     m.setWithWho(Prompt.inputString("누구와 함께: "));
     m.setWhen(Prompt.inputDate("언제: ")); 
     m.setMyRating(Prompt.inputString("별점: "));
+    m.setWhere(Prompt.inputString("영화관: "));
+    m.setDirector(Prompt.inputString("감독: "));
+    m.setCast(Prompt.inputString("출연: "));
+    m.setRunningTime(Prompt.inputString("상영시간: "));
+    m.setRegisteredDate(new java.sql.Date(System.currentTimeMillis()));
 
     movieList.add(m);
   }
@@ -156,11 +162,15 @@ public class MovieHandler {
 
     System.out.println("[영화 목록]");
 
-    Object[] list = movieList.toArray();
-    for (Object obj : list) {
-      Movie m = (Movie) obj;
+    Iterator iterator = new Iterator(this.movieList);
+
+    while (iterator.hasNext()) {
+      Movie m = (Movie) iterator.next();
       System.out.printf("<%s> %s with %s, %s점\n",
-          m.getTitle(), m.getWhen(), m.getWithWho(),  m.getMyRating());
+          m.getTitle(), 
+          m.getWhen(), 
+          m.getWithWho(),  
+          m.getMyRating());
     }
   }
 
@@ -182,7 +192,7 @@ public class MovieHandler {
     System.out.printf("출연: %s\n", movie.getCast());
     System.out.printf("상영시간: %s\n", movie.getRunningTime());
     System.out.printf("개봉일: %s\n", movie.getReleaseDate());
-    System.out.printf("감상: %s\n", movie.getSynop());
+    System.out.printf("내용: %s\n", movie.getSynop());
     System.out.printf("기록일: %s\n", movie.getRegisteredDate());
 
   }
@@ -276,7 +286,6 @@ public class MovieHandler {
   public Movie findByNo(String MovieTitle) {
     Object[] list = movieList.toArray();
     for (Object obj : list) {
-      // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
       Movie m = (Movie) obj;
       if (m.getTitle().equals(MovieTitle)) {
         return m;
@@ -288,7 +297,6 @@ public class MovieHandler {
   public Movie findByName(String title) {
     Object[] list = movieList.toArray();
     for (Object obj : list) {
-      // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
       Movie m = (Movie) obj;
       if (m.getTitle().equals(title)) {
         return m;
@@ -319,11 +327,15 @@ public class MovieHandler {
 
     System.out.println("[영화 목록]");
 
-    Object[] list = movieList.toArray();
-    for (Object obj : list) {
-      Movie m = (Movie) obj;
-      System.out.printf("%s, %s/ <%s> 기대점:%s점\n",
-          m.getWhen(), m.getWithWho(), m.getTitle(), m.getMyRating());
+    Iterator iterator = new Iterator(this.movieList2);
+
+    while (iterator.hasNext()) {
+      Movie m = (Movie) iterator.next();
+      System.out.printf("<%s> %s with %s, 기대점:%s점\n",
+          m.getTitle(), 
+          m.getWhen(), 
+          m.getWithWho(), 
+          m.getMyRating());
     }
   }
 
@@ -345,7 +357,7 @@ public class MovieHandler {
     System.out.printf("출연: %s\n", movie.getCast());
     System.out.printf("상영시간: %s\n", movie.getRunningTime());
     System.out.printf("개봉일: %s\n", movie.getReleaseDate());
-    System.out.printf("감상: %s\n", movie.getSynop());
+    System.out.printf("내용: %s\n", movie.getSynop());
     System.out.printf("기록일: %s\n", movie.getRegisteredDate());
 
   }
@@ -438,7 +450,6 @@ public class MovieHandler {
   private Movie findByNo2(String MovieTitle) {
     Object[] list = movieList2.toArray();
     for (Object obj : list) {
-      // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
       Movie m = (Movie) obj;
       if (m.getTitle().equals(MovieTitle)) {
         return m;
@@ -450,7 +461,6 @@ public class MovieHandler {
   private Movie findByName2(String title) {
     Object[] list = movieList2.toArray();
     for (Object obj : list) {
-      // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
       Movie m = (Movie) obj;
       if (m.getTitle().equals(title)) {
         return m;
