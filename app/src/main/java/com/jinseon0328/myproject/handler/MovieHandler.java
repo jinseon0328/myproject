@@ -1,4 +1,5 @@
 package com.jinseon0328.myproject.handler;
+import java.util.ArrayList;
 import com.jinseon0328.myproject.domain.Movie;
 import com.jinseon0328.util.Iterator;
 import com.jinseon0328.util.List;
@@ -255,6 +256,37 @@ public class MovieHandler {
 
   }
 
+  public void search() {
+    String keyword = Prompt.inputString("검색할 영화를 입력해주세요: ");
+
+    if (keyword.length() == 0) {
+      System.out.println("검색할 영화를 입력하세요.");
+      return;
+    }
+    ArrayList<Movie> list = new ArrayList<>();
+
+    Movie[] Movies = movieList.toArray(new Movie[movieList.size()]);
+    for (Movie m : movies) {
+      if (m.getTitle().contains(keyword) ||
+          m.getDirector().contains(keyword) ||
+          m.getCast().contains(keyword)) {
+        list.add(m);
+      }
+    }
+    if (list.isEmpty()) {
+      System.out.println("검색어에 해당하는 영화 기록이 없습니다.");
+      return;
+    }
+
+    for (Movie m : movie) {
+      System.out.printf("<%s> %s with %s, %s점\n",
+          m.getTitle(), 
+          m.getWhen(), 
+          m.getWithWho(),  
+          m.getMyRating());
+    }
+  }
+
   public String inputMovie(String promptTitle) {
     while (true) {
       String name = Prompt.inputString(promptTitle);
@@ -416,8 +448,39 @@ public class MovieHandler {
     } else {
       System.out.println("영화 삭제를 취소하였습니다.");
     }
-
   }
+
+  public void search() {
+    String keyword = Prompt.inputString("검색할 영화를 입력해주세요: ");
+
+    if (keyword.length() == 0) {
+      System.out.println("검색할 영화를 입력하세요.");
+      return;
+    }
+    ArrayList<Movie> list = new ArrayList<>();
+
+    Movie[] Movies = movieList.toArray(new Movie[movieList.size()]);
+    for (Movie m : movies) {
+      if (m.getTitle().contains(keyword) ||
+          m.getDirector().contains(keyword) ||
+          m.getCast().contains(keyword)) {
+        list.add(m);
+      }
+    }
+    if (list.isEmpty()) {
+      System.out.println("검색어에 해당하는 영화 기록이 없습니다.");
+      return;
+    }
+
+    for (Movie m : movie) {
+      System.out.printf("<%s> %s with %s, %s점\n",
+          m.getTitle(), 
+          m.getWhen(), 
+          m.getWithWho(),  
+          m.getMyRating());
+    }
+  }
+
 
   public String inputMovie2(String promptTitle) {
     while (true) {

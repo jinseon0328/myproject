@@ -1,4 +1,6 @@
 package com.jinseon0328.myproject.handler;
+import java.util.ArrayList;
+import com.jinseon0328.myproject.domain.Drama;
 import com.jinseon0328.myproject.domain.Drama;
 import com.jinseon0328.util.Iterator;
 import com.jinseon0328.util.List;
@@ -256,8 +258,39 @@ public class DramaHandler {
     } else {
       System.out.println("드라마 삭제를 취소하였습니다.");
     }
-
   }
+
+  public void search() {
+    String keyword = Prompt.inputString("검색할 드라마를 입력해주세요: ");
+
+    if (keyword.length() == 0) {
+      System.out.println("검색할 드라마를 입력하세요.");
+      return;
+    }
+    ArrayList<Drama> list = new ArrayList<>();
+
+    Drama[] Dramas = dramaList.toArray(new Drama[dramaList.size()]);
+    for (Drama d : dramas) {
+      if (d.getTitle().contains(keyword) ||
+          d.getDirector().contains(keyword) ||
+          d.getCast().contains(keyword)) {
+        list.add(d);
+      }
+    }
+    if (list.isEmpty()) {
+      System.out.println("검색어에 해당하는 드라마 기록이 없습니다.");
+      return;
+    }
+
+    for (Drama m : drama) {
+      System.out.printf("<%s> %s with %s, %s점\n",
+          m.getTitle(), 
+          m.getWhen(), 
+          m.getWithWho(),  
+          m.getMyRating());
+    }
+  }
+
   public String inputDrama(String promptTitle) {
     while (true) {
       String name = Prompt.inputString(promptTitle);
@@ -432,6 +465,37 @@ public class DramaHandler {
 
     } else {
       System.out.println("드라마 삭제를 취소하였습니다.");
+    }
+
+    public void search() {
+      String keyword = Prompt.inputString("검색할 드라마를 입력해주세요: ");
+
+      if (keyword.length() == 0) {
+        System.out.println("검색할 드라마를 입력하세요.");
+        return;
+      }
+      ArrayList<Drama> list = new ArrayList<>();
+
+      Drama[] Dramas = dramaList.toArray(new Drama[dramaList.size()]);
+      for (Drama d : dramas) {
+        if (d.getTitle().contains(keyword) ||
+            d.getDirector().contains(keyword) ||
+            d.getCast().contains(keyword)) {
+          list.add(d);
+        }
+      }
+      if (list.isEmpty()) {
+        System.out.println("검색어에 해당하는 드라마 기록이 없습니다.");
+        return;
+      }
+
+      for (Drama m : drama) {
+        System.out.printf("<%s> %s with %s, %s점\n",
+            m.getTitle(), 
+            m.getWhen(), 
+            m.getWithWho(),  
+            m.getMyRating());
+      }
     }
 
   }
