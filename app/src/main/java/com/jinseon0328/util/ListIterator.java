@@ -1,11 +1,11 @@
 package com.jinseon0328.util;
 
-public class Iterator {
+public class ListIterator {
 
   List list;
   int cursor = 0;
 
-  public Iterator(List list) {
+  public ListIterator(List list) {
     this.list = list;
   }
 

@@ -7,6 +7,7 @@ import com.jinseon0328.util.Prompt;
 public class App {
 
 
+
   public static void main(String[] args) {
 
     MovieHandler movieHandler = new MovieHandler();

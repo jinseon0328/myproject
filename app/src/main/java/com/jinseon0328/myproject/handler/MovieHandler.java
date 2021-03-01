@@ -1,7 +1,7 @@
 package com.jinseon0328.myproject.handler;
 import java.util.ArrayList;
 import com.jinseon0328.myproject.domain.Movie;
-import com.jinseon0328.util.Iterator;
+import com.jinseon0328.util.ListIterator;
 import com.jinseon0328.util.List;
 import com.jinseon0328.util.Prompt;
 
@@ -163,7 +163,7 @@ public class MovieHandler {
 
     System.out.println("[영화 목록]");
 
-    Iterator iterator = new Iterator(this.movieList);
+    ListIterator iterator = new ListIterator(this.movieList);
 
     while (iterator.hasNext()) {
       Movie m = (Movie) iterator.next();
@@ -359,7 +359,7 @@ public class MovieHandler {
 
     System.out.println("[영화 목록]");
 
-    Iterator iterator = new Iterator(this.movieList2);
+    ListIterator iterator = new ListIterator(this.movieList2);
 
     while (iterator.hasNext()) {
       Movie m = (Movie) iterator.next();

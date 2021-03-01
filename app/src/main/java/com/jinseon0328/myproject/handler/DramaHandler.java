@@ -1,8 +1,7 @@
 package com.jinseon0328.myproject.handler;
 import java.util.ArrayList;
 import com.jinseon0328.myproject.domain.Drama;
-import com.jinseon0328.myproject.domain.Drama;
-import com.jinseon0328.util.Iterator;
+import com.jinseon0328.util.ListIterator;
 import com.jinseon0328.util.List;
 import com.jinseon0328.util.Prompt;
 
@@ -162,7 +161,7 @@ public class DramaHandler {
 
     System.out.println("[드라마 목록보기]");
 
-    Iterator iterator = new Iterator(this.dramaList);
+    ListIterator iterator = new ListIterator(this.dramaList);
 
     while (iterator.hasNext()) {
       Drama d = (Drama) iterator.next();
