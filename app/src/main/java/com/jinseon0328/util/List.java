@@ -1,13 +1,16 @@
 package com.jinseon0328.util;
 
-public class List {
+import java.lang.reflect.Array;
+import java.util.Iterator;
 
-  private Node first;
-  private Node last;
+public class List<E> {
+
+  private Node<E> first;
+  private Node<E> last;
   protected int size = 0;  
 
-  public void add(Object obj) {
-    Node node = new Node(obj);
+  public void add(E obj) {
+    Node<E> node = new Node<>(obj);
 
     if (last == null) { // 연결 리스트의 첫 항목이라면,
       last = node;
@@ -21,25 +24,25 @@ public class List {
     size++;
   }
 
-  public Object[] toArray() {
-    Object[] arr = new Object[size];
+  public E[] toArray(E[] arr) {
+    if (arr.length < size) {
+      arr = (E[]) Array.newInstance(arr.getClass().getComponentType(), size);
+    }
 
-    Node cursor = this.first;
-    int i = 0;
-
-    while (cursor != null) {
-      arr[i++] = cursor.obj;
+    Node<E> cursor = this.first;
+    for (int i = 0; i < size; i++) {
+      arr[i] = cursor.obj;
       cursor = cursor.next;
     }
     return arr;
   }
 
-  public Object get(int index) {
+  public E get(int index) {
     if(index < 0 || index >= this.size) {
       return null;
     }
     int count = 0;
-    Node cursor = first;
+    Node<E> cursor = first;
     while (cursor != null) {
       if(index == count++) {
         return cursor.obj;
@@ -49,42 +52,9 @@ public class List {
     return null;
   }
 
-  public Object delete(int index) {
-    if(index < 0 || index >= this.size) {
-      return null;
-    }
-    Object deleted = null;
-    int count = 0;
-    Node cursor = first;
-    while (cursor != null) {
-      if (index == count++) {
-        deleted = cursor.obj; //삭제될 항목을 보관해 둔다.
-        this.size--;
-        if (first == last) {
-          first = last = null;
-          break;
-        }
-        if (cursor == first) {
-          first = cursor.next;
-          cursor.prev = null;
-        } else {
-          cursor.prev.next = cursor.next;
-          if (cursor.next != null) {
-            cursor.next.prev = cursor.prev;
-          }
-        }
-        if (cursor == last) {
-          last = cursor.prev;
-        }
-        break;
-      }
-      cursor = cursor.next;
-    }
-    return deleted;
-  }
 
-  public boolean delete(Object obj) {
-    Node cursor = first;
+  public boolean delete(E obj) {
+    Node<E> cursor = first;
     while (cursor != null) {
       if (cursor.obj.equals(obj)) {//주소가 다르더라도 안에 들어있는 내용물이 같으면 같은 것으로 
         // 간주한다
@@ -112,28 +82,84 @@ public class List {
     return false; //삭제하든 말든 그건 호출이 알아서 하고 일단 나는 리턴해준다?
   }
 
-  public int indexOf(Object obj) {
-    Object[] list = this.toArray();
-    for (int i = 0; i < list.length; i++) {
-      // 처음부터 끝까지 찾을 때는 :를 쓰고 아닐 때는 세미콜론을 쓴다.
-      if (list[i].equals(obj)) {
-        return i;
+  public E delete(int index) {
+    if (index < 0 || index >= this.size) {
+      return null;
+    }
+
+    E deleted = null;
+    int count = 0;
+    Node<E> cursor = first;
+    while (cursor != null) {
+      if (index == count++) {
+        deleted = cursor.obj; // 삭제될 항목을 보관해 둔다.
+        this.size--;
+        if (first == last) {
+          first = last = null;
+          break;
+        }
+        if (cursor == first) {
+          first = cursor.next;
+          cursor.prev = null;
+        } else {
+          cursor.prev.next = cursor.next;
+          if (cursor.next != null) {
+            cursor.next.prev = cursor.prev;
+          }
+        }
+        if (cursor == last) {
+          last = cursor.prev;
+        }
+        break;
       }
+      cursor = cursor.next;
+    }
+    return deleted;
+  }
+
+
+  public int indexOf(E obj) {
+    int index = 0;
+    Node<E> cursor = first;
+    while (cursor != null) {
+      if (cursor.obj == obj) {
+        return index;
+      }
+      cursor = cursor.next;
+      index++;
     }
     return -1;
   }
 
-  static class Node {
-    // 다형적 변수
-    // - 해당 클래스의 객체(인스턴스의 주소)뿐만 아니라 
-    //그 하위 클래스의 객체(인스턴스의 주소)까지 저장할 수 있다.
-    Object obj;
-    Node next;
-    Node prev;
+  public int size() {
+    return this.size;
+  }
 
-    Node(Object obj) {
+  private static class Node<T> {
+    T obj;
+    Node<T> next;
+    Node<T> prev;
+
+    Node(T obj) {
       this.obj = obj;
     }
   }
 
+  public Iterator<E> iterator() throws CloneNotSupportedException {
+    return new Iterator<E>() {
+      int cursor = 0;
+
+      @Override
+      public boolean hasNext() {
+        return cursor < List.this.size();
+      }
+
+      @Override
+      public E next() {
+        return List.this.get(cursor++);
+      }
+    };
+  }
+
 }
+

@@ -2,72 +2,25 @@ package com.jinseon0328.myproject.handler;
 import java.sql.Date;
 import com.jinseon0328.myproject.domain.Board;
 import com.jinseon0328.util.List;
-import com.jinseon0328.util.ListIterator;
 import com.jinseon0328.util.Prompt;
 
-public class BoardHandler {
+public class DramaBoardHandler {
 
-  public void service() {
-    loop:
-      while (true) {
-        System.out.println("작품 추천: ");
-        System.out.println("\t내가 추천하는 작품들\n");
-        System.out.println("1. 추천 영화 등록하기");
-        System.out.println("2. 추천 영화 목록보기");
-        System.out.println("3. 추천 영화 상세보기");
-        System.out.println("4. 추천 영화 변경하기");
-        System.out.println("5. 추천 영화 삭제하기");
-        System.out.println("0. 되돌아가기");
+  private List<Board> boardList = new List<>();
 
-        String command = com.jinseon0328.util.Prompt.inputString("> ");
-        System.out.println();
-        try {
-          switch (command) {
-            case "1":
-              movieHandler.add();
-              break;
-            case "2":
-              movieHandler.list();
-              break;
-            case "3":
-              movieHandler.detail();
-              break;
-            case "4":
-              movieHandler.update();
-              break;
-            case "5":
-              movieHandler.delete();
-              break;
-            case "0":
-              break loop;
-            default:
-              System.out.println("메뉴 번호가 맞지 않습니다.");
-          }
-        } catch (Exception e) {
-          System.out.println("------------------------------------------------");
-          System.out.printf("명령어 실행 중 오류 발생 :%s - %s\n", 
-              e.getClass().getName(), e.getMessage());
-          System.out.println("------------------------------------------------");
-        }
-        System.out.println();
-      }
+  private DramaBoardHandler dramaBoardHandler;
+
+  public DramaBoardHandler(WatchedDramaHandler watchedDramaHandler) {
+    this.dramaBoardHandler = dramaBoardHandler;
   }
 
-  private List boardList = new List();
+  public void dramaAdd() {
 
-  private MovieHandler movieHandler;
-
-  public BoardHandler(MovieHandler movieHandler) {
-    this.movieHandler = movieHandler;
-  }
-
-  public void add(MovieHandler movieList) {
-
-    System.out.println("[추천 영화 등록]");
+    System.out.println("[추천 드라마 등록]");
 
     Board b = new Board();
 
-    b.setName(movieHandler.inputMovie("제목: "));
+    b.setName(Prompt.inputString("제목: "));
     b.setReason(Prompt.inputString("추천 이유: "));
     b.setRegisteredDate(new Date(System.currentTimeMillis()));
 
@@ -75,14 +28,12 @@ public class BoardHandler {
 
     System.out.println("게시글을 등록하였습니다.");
   }
+  public void dramaList() throws CloneNotSupportedException {
 
-  public void list() throws CloneNotSupportedException {
     System.out.println("[추천한 영화 목록]");
-
-    ListIterator iterator = new ListIterator(this.boardList);
-
-    while (iterator.hasNext()) {
-      Board b = (Board) iterator.next();
+    Object[] list = boardList.toArray(new Board[0]);
+    for (Object obj : list) {
+      Board b = (Board) obj;
       System.out.printf("%s, %s, %s, %d, %d\n",  
           b.getName(), 
           b.getWriter(),
@@ -91,10 +42,8 @@ public class BoardHandler {
           b.getLike());
     }
   }
-
-  public void detail() {
+  public void dramaDetail() {
     System.out.println("[추천한 영화 세부 사항]");
-
     String name = Prompt.inputString("제목: ");
 
     Board board = findByNo(name);
@@ -111,7 +60,8 @@ public class BoardHandler {
     System.out.printf("좋아요: %d\n", board.getLike());
   }
 
-  public void update() {
+
+  public void dramaUpdate() {
     System.out.println("[추천 영화 변경]");
 
     String name = Prompt.inputString("제목: ");
@@ -137,8 +87,8 @@ public class BoardHandler {
     }
   }
 
-  public void delete() {
-    System.out.println("[추천 영화 삭제]");
+  public void dramaDelete() {
+    System.out.println("[추천 드라마 삭제]");
 
     String name = Prompt.inputString("제목? ");
 
@@ -151,7 +101,7 @@ public class BoardHandler {
     String input = Prompt.inputString("정말 삭제하시겠습니까?(y/N) ");
 
     if (input.equalsIgnoreCase("Y")) {
-      boardList.delete(name);
+      boardList.delete(board);
 
       System.out.println("게시글을 삭제하였습니다.");
 
@@ -161,7 +111,7 @@ public class BoardHandler {
   }
 
   private Board findByNo(String boardName) {
-    Object[] list = boardList.toArray();
+    Object[] list = boardList.toArray(new Board[0]);
     for (Object obj : list) {
       Board b = (Board) obj;
       if (b.getName() == boardName) {
@@ -170,6 +120,7 @@ public class BoardHandler {
     }
     return null;
   }
+
 }
 
 
