@@ -7,6 +7,9 @@ import com.jinseon0328.myproject.handler.WatchedDramaHandler;
 import com.jinseon0328.myproject.handler.WatchedMovieHandler;
 import com.jinseon0328.util.Prompt;
 
+// search() 가능하게 만들고
+// map 사용하게 하고
+
 public class App {
 
   static WatchedMovieHandler watchedMovieHandler = new WatchedMovieHandler();
