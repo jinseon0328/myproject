@@ -9,6 +9,7 @@ import com.jinseon0328.util.Prompt;
 
 // search() 가능하게 만들고
 // map 사용하게 하고
+// 21-a 까지 적용
 
 public class App {
 
