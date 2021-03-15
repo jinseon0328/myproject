@@ -9,7 +9,7 @@ public class MovieBoardHandler {
   private List<Board> boardList = new List<>();
   private MovieBoardHandler movieBoardHandler;
 
-  public MovieBoardHandler(WatchedMovieHandler watchedMovieHandler) {
+  public MovieBoardHandler(AfterMovieHandler afterMovieHandler) {
     this.movieBoardHandler = movieBoardHandler;
   }
 

@@ -5,7 +5,7 @@ import com.jinseon0328.util.Iterator;
 import com.jinseon0328.util.List;
 import com.jinseon0328.util.Prompt;
 
-public class ToWatchMovieHandler {
+public class BeforeMovieHandler {
 
   private List<Movie> movieList = new List<>();
 

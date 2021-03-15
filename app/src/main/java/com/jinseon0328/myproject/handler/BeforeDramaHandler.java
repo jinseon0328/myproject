@@ -1,17 +1,16 @@
 package com.jinseon0328.myproject.handler;
 import java.util.ArrayList;
+import com.jinseon0328.myproject.domain.Board;
 import com.jinseon0328.myproject.domain.Drama;
+import com.jinseon0328.myproject.domain.Movie;
 import com.jinseon0328.util.Iterator;
 import com.jinseon0328.util.List;
 import com.jinseon0328.util.Prompt;
 
-public class WatchedDramaHandler {
+public class BeforeDramaHandler {
 
   private List<Drama> dramaList = new List<>();
-  private WatchedDramaHandler WatchedDramaHandler;
-  public List<Drama> getDramaList() {
-    return this.dramaList;
-  }
+  private ToWatchDramaHandler toWatchDramaHandler;
 
   public void add() {
 
@@ -32,15 +31,13 @@ public class WatchedDramaHandler {
 
 
     dramaList.add(d);
-
-    System.out.println("본 영화를 등록하였습니다.");
   }
 
-
   public void list() throws CloneNotSupportedException {
+
     System.out.println("[드라마 목록보기]");
 
-    Iterator<Drama> iterator = dramaList.iterator();
+    Iterator<Movie> iterator = new dramaList.iterator;
 
     while (iterator.hasNext()) {
       Drama d = iterator.next();
@@ -108,10 +105,10 @@ public class WatchedDramaHandler {
       drama.setWhen(when);
       drama.setWithWho(withWho);
       drama.setWhere(where);
-      System.out.println("드라마를 변경하였습니다.");
+      System.out.println("회원을 변경하였습니다.");
 
     } else {
-      System.out.println("드라마 변경을 취소하였습니다.");
+      System.out.println("회원 변경을 취소하였습니다.");
     }
   }
 
@@ -136,86 +133,88 @@ public class WatchedDramaHandler {
     } else {
       System.out.println("드라마 삭제를 취소하였습니다.");
     }
-  }
 
-  public void search() {
-    String keyword = Prompt.inputString("검색할 드라마를 입력해주세요: ");
+    public void search() {
+      String keyword = Prompt.inputString("검색할 드라마를 입력해주세요: ");
 
-    if (keyword.length() == 0) {
-      System.out.println("검색할 드라마를 입력하세요.");
-      return;
-    }
-    ArrayList<Drama> list = new ArrayList<>();
-
-    Drama[] Dramas = dramaList.toArray(new Drama[dramaList.size()]);
-    for (Drama d : dramas) {
-      if (d.getTitle().contains(keyword) ||
-          d.getDirector().contains(keyword) ||
-          d.getCast().contains(keyword)) {
-        list.add(d);
+      if (keyword.length() == 0) {
+        System.out.println("검색할 드라마를 입력하세요.");
+        return;
       }
-    }
-    if (list.isEmpty()) {
-      System.out.println("검색어에 해당하는 드라마 기록이 없습니다.");
-      return;
-    }
+      ArrayList<Drama> list = new ArrayList<>();
 
-    for (Drama m : drama) {
-      System.out.printf("<%s> %s with %s, %s점\n",
-          m.getTitle(), 
-          m.getWhen(), 
-          m.getWithWho(),  
-          m.getMyRating());
-    }
-  }
-
-  public String inputDrama(String promptTitle) {
-    while (true) {
-      String name = Prompt.inputString(promptTitle);
-      if (name.length() == 0) {
-        return null;
-      } 
-      if (findByName(name) != null) {
-        return name;
-      }
-      System.out.println("등록된 드라마가 아닙니다.");
-    }
-  }
-
-  public String inputDramas(String promptTitle) {
-    String dramas = "";
-    while (true) {
-      String name = inputDramas(promptTitle);
-      if (name == null) {
-        return dramas;
-      } else {
-        if (!dramas.isEmpty()) {
-          dramas += ",";
+      Drama[] Dramas = dramaList.toArray(new Drama[dramaList.size()]);
+      for (Drama d : dramas) {
+        if (d.getTitle().contains(keyword) ||
+            d.getDirector().contains(keyword) ||
+            d.getCast().contains(keyword)) {
+          list.add(d);
         }
-        dramas += name;
       }
-    }
-  }
+      if (list.isEmpty()) {
+        System.out.println("검색어에 해당하는 드라마 기록이 없습니다.");
+        return;
+      }
 
-  public Drama findByNo(String dramaTitle) {
-    Object[] list = dramaList.toArray(new Drama[0]);
-    for (Object obj : list) {
-      Drama d = (Drama) obj;
-      if (d.getTitle().equals(dramaTitle)) {
-        return d;
+      for (Drama m : drama) {
+        System.out.printf("<%s> %s with %s, %s점\n",
+            m.getTitle(), 
+            m.getWhen(), 
+            m.getWithWho(),  
+            m.getMyRating());
       }
     }
-    return null;
-  }
 
-  public Drama findByName(String title) {
-    Object[] list = dramaList.toArray(new Drama[0]);
-    for (Object obj : list) {
-      Drama d = (Drama) obj;
-      if (d.getTitle().equals(title)) {
-        return d;
+
+
+    public String inputDrama(String promptTitle) {
+      while (true) {
+        String name = Prompt.inputString(promptTitle);
+        if (name.length() == 0) {
+          return null;
+        } 
+        if (findByName(name) != null) {
+          return name;
+        }
+        System.out.println("등록된 드라마가 아닙니다.");
       }
     }
-    return null;
+
+    public String inputDramas(String promptTitle) {
+      String dramas = "";
+      while (true) {
+        String name = inputDramas(promptTitle);
+        if (name == null) {
+          return dramas;
+        } else {
+          if (!dramas.isEmpty()) {
+            dramas += ",";
+          }
+          dramas += name;
+        }
+      }
+    }
+
+    public Drama findByNo(String dramaTitle) {
+      Object[] list = dramaList.toArray(new Drama[0]);
+      for (Object obj : list) {
+        Drama d = (Drama) obj;
+        if (d.getTitle().equals(dramaTitle)) {
+          return d;
+        }
+      }
+      return null;
+    }
+
+    public Drama findByName(String title) {
+      Object[] list = dramaList.toArray(new Drama[0]);
+      for (Object obj : list) {
+        Drama d = (Drama) obj;
+        if (d.getTitle().equals(title)) {
+          return d;
+        }
+      }
+      return null;
+    }
+
   }
-}

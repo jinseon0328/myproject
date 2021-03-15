@@ -1,10 +1,10 @@
 package com.jinseon0328.myproject;
+import com.jinseon0328.myproject.handler.AfterDramaHandler;
+import com.jinseon0328.myproject.handler.AfterMovieHandler;
+import com.jinseon0328.myproject.handler.BeforeDramaHandler;
+import com.jinseon0328.myproject.handler.BeforeMovieHandler;
 import com.jinseon0328.myproject.handler.DramaBoardHandler;
 import com.jinseon0328.myproject.handler.MovieBoardHandler;
-import com.jinseon0328.myproject.handler.ToWatchDramaHandler;
-import com.jinseon0328.myproject.handler.ToWatchMovieHandler;
-import com.jinseon0328.myproject.handler.WatchedDramaHandler;
-import com.jinseon0328.myproject.handler.WatchedMovieHandler;
 import com.jinseon0328.util.Prompt;
 
 // search() 가능하게 만들고
@@ -13,12 +13,12 @@ import com.jinseon0328.util.Prompt;
 
 public class App {
 
-  static WatchedMovieHandler watchedMovieHandler = new WatchedMovieHandler();
-  static ToWatchMovieHandler toWatchMovieHandler= new ToWatchMovieHandler();
-  static WatchedDramaHandler watchedDramaHandler = new WatchedDramaHandler();
-  static ToWatchDramaHandler toWatcheDramaHandler = new ToWatchDramaHandler();
-  static DramaBoardHandler dramaBoardHandler = new DramaBoardHandler(watchedDramaHandler);
-  static MovieBoardHandler movieBoardHandler = new MovieBoardHandler(watchedMovieHandler);
+  static AfterMovieHandler afterMovieHandler = new AfterMovieHandler();
+  static BeforeMovieHandler beforeMovieHandler= new BeforeMovieHandler();
+  static AfterDramaHandler afterDramaHandler = new AfterDramaHandler();
+  static BeforeDramaHandler toWatcheDramaHandler = new BeforeDramaHandler();
+  static DramaBoardHandler dramaBoardHandler = new DramaBoardHandler(afterDramaHandler);
+  static MovieBoardHandler movieBoardHandler = new MovieBoardHandler(afterMovieHandler);
 
   public static void main(String[] args) throws CloneNotSupportedException {
 
@@ -109,19 +109,19 @@ public class App {
         try {
           switch (command) {
             case "1":
-              watchedMovieHandler.add();
+              afterMovieHandler.add();
               break;
             case "2":
-              watchedMovieHandler.list();
+              afterMovieHandler.list();
               break;
             case "3":
-              watchedMovieHandler.detail();
+              afterMovieHandler.detail();
               break;
             case "4":
-              watchedMovieHandler.update();
+              afterMovieHandler.update();
               break;
             case "5":
-              watchedMovieHandler.delete();
+              afterMovieHandler.delete();
               break;
             case "0":
               break loop;
@@ -157,19 +157,19 @@ public class App {
         try {
           switch (command) {
             case "1":
-              toWatchMovieHandler.add();
+              beforeMovieHandler.add();
               break;
             case "2":
-              toWatchMovieHandler.list();
+              beforeMovieHandler.list();
               break;
             case "3":
-              toWatchMovieHandler.detail();
+              beforeMovieHandler.detail();
               break;
             case "4":
-              toWatchMovieHandler.update();
+              beforeMovieHandler.update();
               break;
             case "5":
-              toWatchMovieHandler.delete();
+              beforeMovieHandler.delete();
               break;
             case "0":
               break loop;
@@ -234,19 +234,19 @@ public class App {
         try {
           switch (command) {
             case "1":
-              watchedDramaHandler.add();
+              afterDramaHandler.add();
               break;
             case "2":
-              watchedDramaHandler.list();
+              afterDramaHandler.list();
               break;
             case "3":
-              watchedDramaHandler.detail();
+              afterDramaHandler.detail();
               break;
             case "4":
-              watchedDramaHandler.update();
+              afterDramaHandler.update();
               break;
             case "5":
-              watchedDramaHandler.delete();
+              afterDramaHandler.delete();
               break;
             case "0":
               break loop;
@@ -284,19 +284,19 @@ public class App {
         try {
           switch (command) {
             case "1":
-              toWatchMovieHandler.add();
+              beforeMovieHandler.add();
               break;
             case "2":
-              toWatchMovieHandler.list();
+              beforeMovieHandler.list();
               break;
             case "3":
-              toWatchMovieHandler.detail();
+              beforeMovieHandler.detail();
               break;
             case "4":
-              toWatchMovieHandler.update();
+              beforeMovieHandler.update();
               break;
             case "5":
-              toWatchMovieHandler.delete();
+              beforeMovieHandler.delete();
               break;
             case "0":
               break loop;

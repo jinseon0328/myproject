@@ -10,7 +10,7 @@ public class DramaBoardHandler {
 
   private DramaBoardHandler dramaBoardHandler;
 
-  public DramaBoardHandler(WatchedDramaHandler watchedDramaHandler) {
+  public DramaBoardHandler(AfterDramaHandler afterDramaHandler) {
     this.dramaBoardHandler = dramaBoardHandler;
   }
 

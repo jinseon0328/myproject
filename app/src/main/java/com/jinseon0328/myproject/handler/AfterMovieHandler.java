@@ -5,10 +5,10 @@ import com.jinseon0328.util.Iterator;
 import com.jinseon0328.util.List;
 import com.jinseon0328.util.Prompt;
 
-public class WatchedMovieHandler {
+public class AfterMovieHandler {
 
   private List<Movie> movieList = new List<>();
-  private WatchedMovieHandler WatchedMovieHandler;
+  private AfterMovieHandler AfterMovieHandler;
 
   public void add() {
 
