@@ -45,6 +45,7 @@ public class App {
 
   //24-b까지 적용
 
+
   public static void main(String[] args) throws CloneNotSupportedException {
 
     ArrayList<Board> dramaboardList = new ArrayList<>();
