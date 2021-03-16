@@ -1,26 +1,99 @@
 package com.jinseon0328.myproject;
-import com.jinseon0328.myproject.handler.AfterDramaHandler;
-import com.jinseon0328.myproject.handler.AfterMovieHandler;
-import com.jinseon0328.myproject.handler.BeforeDramaHandler;
-import com.jinseon0328.myproject.handler.BeforeMovieHandler;
-import com.jinseon0328.myproject.handler.DramaBoardHandler;
-import com.jinseon0328.myproject.handler.MovieBoardHandler;
+import java.util.ArrayList;
+import com.jinseon0328.myproject.domain.Board;
+import com.jinseon0328.myproject.domain.Drama;
+import com.jinseon0328.myproject.domain.Movie;
+import com.jinseon0328.myproject.handler.AfterDramaAddHandler;
+import com.jinseon0328.myproject.handler.AfterDramaDeleteHandler;
+import com.jinseon0328.myproject.handler.AfterDramaDetailHandler;
+import com.jinseon0328.myproject.handler.AfterDramaListHandler;
+import com.jinseon0328.myproject.handler.AfterDramaSearchHandler;
+import com.jinseon0328.myproject.handler.AfterDramaUpdateHandler;
+import com.jinseon0328.myproject.handler.AfterMovieAddHandler;
+import com.jinseon0328.myproject.handler.AfterMovieDeleteHandler;
+import com.jinseon0328.myproject.handler.AfterMovieDetailHandler;
+import com.jinseon0328.myproject.handler.AfterMovieListHandler;
+import com.jinseon0328.myproject.handler.AfterMovieSearchHandler;
+import com.jinseon0328.myproject.handler.AfterMovieUpdateHandler;
+import com.jinseon0328.myproject.handler.BeforeDramaAddHandler;
+import com.jinseon0328.myproject.handler.BeforeDramaDeleteHandler;
+import com.jinseon0328.myproject.handler.BeforeDramaDetailHandler;
+import com.jinseon0328.myproject.handler.BeforeDramaListHandler;
+import com.jinseon0328.myproject.handler.BeforeDramaSearchHandler;
+import com.jinseon0328.myproject.handler.BeforeDramaUpdateHandler;
+import com.jinseon0328.myproject.handler.BeforeMovieAddHandler;
+import com.jinseon0328.myproject.handler.BeforeMovieDeleteHandler;
+import com.jinseon0328.myproject.handler.BeforeMovieDetailHandler;
+import com.jinseon0328.myproject.handler.BeforeMovieListHandler;
+import com.jinseon0328.myproject.handler.BeforeMovieSearchHandler;
+import com.jinseon0328.myproject.handler.BeforeMovieUpdateHandler;
+import com.jinseon0328.myproject.handler.DramaBoardAddHandler;
+import com.jinseon0328.myproject.handler.DramaBoardDeleteHandler;
+import com.jinseon0328.myproject.handler.DramaBoardDetailHandler;
+import com.jinseon0328.myproject.handler.DramaBoardListHandler;
+import com.jinseon0328.myproject.handler.DramaBoardSearchHandler;
+import com.jinseon0328.myproject.handler.DramaBoardUpdateHandler;
+import com.jinseon0328.myproject.handler.MovieBoardAddHandler;
+import com.jinseon0328.myproject.handler.MovieBoardDeleteHandler;
+import com.jinseon0328.myproject.handler.MovieBoardDetailHandler;
+import com.jinseon0328.myproject.handler.MovieBoardListHandler;
+import com.jinseon0328.myproject.handler.MovieBoardSearchHandler;
+import com.jinseon0328.myproject.handler.MovieBoardUpdateHandler;
 import com.jinseon0328.util.Prompt;
-
-// search() 가능하게 만들고
-// map 사용하게 하고
-// 21-a 까지 적용
 
 public class App {
 
-  static AfterMovieHandler afterMovieHandler = new AfterMovieHandler();
-  static BeforeMovieHandler beforeMovieHandler= new BeforeMovieHandler();
-  static AfterDramaHandler afterDramaHandler = new AfterDramaHandler();
-  static BeforeDramaHandler toWatcheDramaHandler = new BeforeDramaHandler();
-  static DramaBoardHandler dramaBoardHandler = new DramaBoardHandler(afterDramaHandler);
-  static MovieBoardHandler movieBoardHandler = new MovieBoardHandler(afterMovieHandler);
+  //24-b까지 적용
 
   public static void main(String[] args) throws CloneNotSupportedException {
+
+    ArrayList<Board> dramaboardList = new ArrayList<>();
+    DramaBoardAddHandler dramaboardAddHandler = new DramaBoardAddHandler(dramaboardList);
+    DramaBoardListHandler dramaboardListHandler = new DramaBoardListHandler(dramaboardList);
+    DramaBoardDetailHandler dramaDetailHandler = new DramaBoardDetailHandler(dramaboardList);
+    DramaBoardDeleteHandler dramaboardDeleteHandler = new DramaBoardDeleteHandler(dramaboardList);
+    DramaBoardUpdateHandler dramaboardUpdateHandler = new DramaBoardUpdateHandler(dramaboardList);
+    DramaBoardSearchHandler dramaboardSearchHandler = new DramaBoardSearchHandler(dramaboardList);  
+
+    ArrayList<Board> movieboardList = new ArrayList<>();
+    MovieBoardAddHandler movieboardAddHandler = new MovieBoardAddHandler(movieboardList);
+    MovieBoardListHandler movieboardListHandler = new MovieBoardListHandler(movieboardList);
+    MovieBoardDetailHandler movieDetailHandler = new MovieBoardDetailHandler(movieboardList);
+    MovieBoardDeleteHandler movieboardDeleteHandler = new MovieBoardDeleteHandler(movieboardList);
+    MovieBoardUpdateHandler movieboardUpdateHandler = new MovieBoardUpdateHandler(movieboardList);
+    MovieBoardSearchHandler movieboardSearchHandler = new MovieBoardSearchHandler(movieboardList);  
+
+    ArrayList<Drama> beforedramaList = new ArrayList<>();
+    BeforeDramaAddHandler beforedramaAddHandler = new BeforeDramaAddHandler(beforedramaList);
+    BeforeDramaListHandler beforedramaListHandler = new BeforeDramaListHandler(beforedramaList);
+    BeforeDramaDetailHandler beforedramaDetailHandler = new BeforeDramaDetailHandler(beforedramaList);
+    BeforeDramaDeleteHandler beforedramaDeleteHandler = new BeforeDramaDeleteHandler(beforedramaList);
+    BeforeDramaUpdateHandler beforedramaUpdateHandler = new BeforeDramaUpdateHandler(beforedramaList);
+    BeforeDramaSearchHandler beforedramaSearchHandler = new BeforeDramaSearchHandler(beforedramaList);
+
+    ArrayList<Drama> afterdramaList = new ArrayList<>();
+    AfterDramaAddHandler afterdramaAddHandler = new AfterDramaAddHandler(afterdramaList);
+    AfterDramaListHandler afterdramaListHandler = new AfterDramaListHandler(afterdramaList);
+    AfterDramaDetailHandler afterdramaDetailHandler = new AfterDramaDetailHandler(afterdramaList);
+    AfterDramaDeleteHandler afterdramaDeleteHandler = new AfterDramaDeleteHandler(afterdramaList);
+    AfterDramaUpdateHandler afterdramaUpdateHandler = new AfterDramaUpdateHandler(afterdramaList);
+    AfterDramaSearchHandler afteredramaSearchHandler = new AfterDramaSearchHandler(afterdramaList);
+
+    ArrayList<Movie> beforemovieList = new ArrayList<>();
+    BeforeMovieAddHandler beforemovieAddHandler = new BeforeMovieAddHandler(beforemovieList);
+    BeforeMovieListHandler beforemovieListHandler = new BeforeMovieListHandler(beforemovieList);
+    BeforeMovieDetailHandler beforemovieDetailHandler = new BeforeMovieDetailHandler(beforemovieList);
+    BeforeMovieDeleteHandler beforemovieDeleteHandler = new BeforeMovieDeleteHandler(beforemovieList);
+    BeforeMovieUpdateHandler beforemovieUpdateHandler = new BeforeMovieUpdateHandler(beforemovieList);
+    BeforeMovieSearchHandler beforemovieSearchHandler = new BeforeMovieSearchHandler(beforemovieList);
+
+    ArrayList<Movie> aftermovieList = new ArrayList<>();
+    AfterMovieAddHandler aftermovieAddHandler = new AfterMovieAddHandler(aftermovieList);
+    AfterMovieListHandler aftermovieListHandler = new AfterMovieListHandler(aftermovieList);
+    AfterMovieDetailHandler aftermovieDetailHandler = new AfterMovieDetailHandler(aftermovieList);
+    AfterMovieDeleteHandler aftermovieDeleteHandler = new AfterMovieDeleteHandler(aftermovieList);
+    AfterMovieUpdateHandler aftermovieUpdateHandler = new AfterMovieUpdateHandler(aftermovieList);
+    AfterMovieSearchHandler aftermovieSearchHandler = new AfterMovieSearchHandler(aftermovieList);
 
     loop:
       while (true) {
@@ -75,10 +148,10 @@ public class App {
 
         switch (command) {
           case "1":
-            watchedMovieService();
+            afterMovieService();
             break;
           case "2":
-            toWatchMovieService();
+            beforeMovieService();
             break;
           case "0":
             break loop;
@@ -90,17 +163,19 @@ public class App {
       }
   }
 
-  static void watchedMovieService() {
+  public static void afterMovieService() {
+
     loop:
       while (true) {
         System.out.println("이미 본 영화 기록");
         System.out.print("\t\t:My Cinema\n ");
         System.out.println("\t\t------------ ");
-        System.out.println("1. 본 영화 기록");
-        System.out.println("2. 본 영화 목록");
-        System.out.println("3. 본 영화 상세");
-        System.out.println("4. 본 영화 변경");
-        System.out.println("5. 본 영화 삭제");
+        System.out.println("1. 기록하기");
+        System.out.println("2. 목록보기");
+        System.out.println("3. 상세한 내용보기");
+        System.out.println("4. 변경하기");
+        System.out.println("5. 삭제하기");
+        System.out.println("6. 검색하기");
         System.out.println("0. 되돌아가기");
 
         String command = com.jinseon0328.util.Prompt.inputString("> ");
@@ -109,19 +184,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              afterMovieHandler.add();
+              AfterMovieAddHandler.add();
               break;
             case "2":
-              afterMovieHandler.list();
+              AfterMovieListHandler.list();
               break;
             case "3":
-              afterMovieHandler.detail();
+              AfterMovieDetailHandler.detail();
               break;
             case "4":
-              afterMovieHandler.update();
+              AfterMovieUpdateHandler.update();
               break;
             case "5":
-              afterMovieHandler.delete();
+              AfterMovieDeleteHandler.delete();
+              break;
+            case "6":
+              AfterMovieSearchHandler.search();
               break;
             case "0":
               break loop;
@@ -138,17 +216,18 @@ public class App {
       }
   }
 
-  static void toWatchMovieService() {
+  static void beforeMovieService() {
     loop:
       while (true) {
         System.out.println("앞으로 볼 영화 기록");
         System.out.printf("\t\t:My Cinema\n ");
         System.out.println("\t\t------------ ");
-        System.out.println("1. 볼 영화 기록");
-        System.out.println("2. 볼 영화 목록");
-        System.out.println("3. 볼 영화 상세");
-        System.out.println("4. 볼 영화 변경");
-        System.out.println("5. 볼 영화 삭제");
+        System.out.println("1. 기록하기");
+        System.out.println("2. 목록보기");
+        System.out.println("3. 상세한 내용보기");
+        System.out.println("4. 변경하기");
+        System.out.println("5. 삭제하기");
+        System.out.println("6. 검색하기");
         System.out.println("0. 되돌아가기");
 
         String command = com.jinseon0328.util.Prompt.inputString("> ");
@@ -157,19 +236,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              beforeMovieHandler.add();
+              BeforeMovieAddHandler.add();
               break;
             case "2":
-              beforeMovieHandler.list();
+              BeforeMovieListHandler.list();
               break;
             case "3":
-              beforeMovieHandler.detail();
+              BeforeMovieDetailHandler.detail();
               break;
             case "4":
-              beforeMovieHandler.update();
+              BeforeMovieUpdateHandler.update();
               break;
             case "5":
-              beforeMovieHandler.delete();
+              BeforeMovieDeleteHandler.delete();
+              break;
+            case "6":
+              BeforeMovieSearchHandler.search();
               break;
             case "0":
               break loop;
@@ -201,10 +283,10 @@ public class App {
 
         switch (command) {
           case "1":
-            wathedDramaService();
+            afterDramaService();
             break;
           case "2":
-            toWatchDramaService();
+            beforeDramaService();
             break;
           case "0":
             break loop;
@@ -216,17 +298,18 @@ public class App {
       }
   }
 
-  static void wathedDramaService() {
+  static void afterDramaService() {
     loop:
       while (true) {
         System.out.println("이미 본 드라마 기록");
         System.out.printf("\t\t:My Drama\n ");
         System.out.println("\t\t------------ ");
-        System.out.println("1. 드라마 기록");
-        System.out.println("2. 드라마 목록");
-        System.out.println("3. 드라마 상세");
-        System.out.println("4. 드라마 변경");
-        System.out.println("5. 드라마 삭제");
+        System.out.println("1. 기록하기");
+        System.out.println("2. 목록보기");
+        System.out.println("3. 상세한 내용보기");
+        System.out.println("4. 변경하기");
+        System.out.println("5. 삭제하기");
+        System.out.println("6. 검색하기");
         System.out.println("0. 되돌아가기");
 
         String command = com.jinseon0328.util.Prompt.inputString("> ");
@@ -234,19 +317,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              afterDramaHandler.add();
+              AfterDramaAddHandler.add();
               break;
             case "2":
-              afterDramaHandler.list();
+              AfterDramaListHandler.list();
               break;
             case "3":
-              afterDramaHandler.detail();
+              AfterDramaDetailHandler.detail();
               break;
             case "4":
-              afterDramaHandler.update();
+              AfterDramaUpdateHandler.update();
               break;
             case "5":
-              afterDramaHandler.delete();
+              AfterDramaDeleteHandler.delete();
+              break;
+            case "6":
+              AfterDramaSearchHandler.search();
               break;
             case "0":
               break loop;
@@ -265,17 +351,18 @@ public class App {
       }
   }
 
-  static void toWatchDramaService() {
+  static void beforeDramaService() {
     loop:
       while (true) {
         System.out.println("앞으로 볼 드라마 기록");
         System.out.printf("\t\t:My Drama\n ");
         System.out.println("\t\t------------ ");
-        System.out.println("1. 드라마 기록");
-        System.out.println("2. 드라마 목록");
-        System.out.println("3. 드라마 상세");
-        System.out.println("4. 드라마 변경");
-        System.out.println("5. 드라마 삭제");
+        System.out.println("1. 기록하기");
+        System.out.println("2. 목록보기");
+        System.out.println("3. 상세한 내용보기");
+        System.out.println("4. 변경하기");
+        System.out.println("5. 삭제하기");
+        System.out.println("6. 검색하기");
         System.out.println("0. 되돌아가기");
 
         String command = com.jinseon0328.util.Prompt.inputString("> ");
@@ -284,19 +371,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              beforeMovieHandler.add();
+              BeforeDramaAddHandler.add();
               break;
             case "2":
-              beforeMovieHandler.list();
+              BeforeDramaListHandler.list();
               break;
             case "3":
-              beforeMovieHandler.detail();
+              BeforeDramaDetailHandler.detail();
               break;
             case "4":
-              beforeMovieHandler.update();
+              BeforeDramaUpdateHandler.update();
               break;
             case "5":
-              beforeMovieHandler.delete();
+              BeforeDramaDeleteHandler.delete();
+              break;
+            case "6":
+              BeforeDramaSearchHandler.search();
               break;
             case "0":
               break loop;
@@ -324,6 +414,7 @@ public class App {
         System.out.println("3. 추천 영화 상세보기");
         System.out.println("4. 추천 영화 변경하기");
         System.out.println("5. 추천 영화 삭제하기");
+        System.out.println("6. 추천 영화 검색하기");
         System.out.println("0. 되돌아가기");
 
         String command = com.jinseon0328.util.Prompt.inputString("> ");
@@ -331,24 +422,27 @@ public class App {
         try {
           switch (command) {
             case "1":
-              movieBoardHandler.movieAdd();
+              MovieBoardAddHandler.add();
               break;
             case "2":
-              movieBoardHandler.movieList();
+              MovieBoardListHandler.list();
               break;
             case "3":
-              movieBoardHandler.movieDetail();
+              MovieBoardDetailHandler.detail();
               break;
             case "4":
-              movieBoardHandler.movieUpdate();
+              MovieBoardUpdateHandler.update();
               break;
             case "5":
-              movieBoardHandler.movieDelete();
+              MovieBoardDeleteHandler.delete();
+              break;
+            case "6":
+              MovieBoardSearchHandler.search();
               break;
             case "0":
               break loop;
             default:
-              System.out.println("메뉴 번호가 맞지 않습니다.");
+              System.out.println("선택 번호가 맞지 않습니다.");
           }
         } catch (Exception e) {
           System.out.println("------------------------------------------------");
@@ -370,6 +464,7 @@ public class App {
         System.out.println("3. 추천 드라마 상세보기");
         System.out.println("4. 추천 드라마 변경하기");
         System.out.println("5. 추천 드라마 삭제하기");
+        System.out.println("6. 추천 드라마 검색하기");
         System.out.println("0. 되돌아가기");
 
         String command = com.jinseon0328.util.Prompt.inputString("> ");
@@ -377,19 +472,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              dramaBoardHandler.dramaAdd();
+              DramaBoardAddHandler.add();
               break;
             case "2":
-              dramaBoardHandler.dramaList();
+              DramaBoardListHandler.list();
               break;
             case "3":
-              dramaBoardHandler.dramaDetail();
+              DramaBoardDetailHandler.detail();
               break;
             case "4":
-              dramaBoardHandler.dramaUpdate();
+              DramaBoardUpdateHandler.update();
               break;
             case "5":
-              dramaBoardHandler.dramaDelete();
+              DramaBoardDeleteHandler.delete();
+              break;
+            case "6":
+              DramaBoardSearchHandler.search();
               break;
             case "0":
               break loop;
