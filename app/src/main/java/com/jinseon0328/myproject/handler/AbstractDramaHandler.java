@@ -3,7 +3,7 @@ package com.jinseon0328.myproject.handler;
 import java.util.List;
 import com.jinseon0328.myproject.domain.Drama;
 
-public class AbstractDramaHandler {
+public class AbstractDramaHandler implements Command {
 
   protected static List<Drama> dramaList;
 

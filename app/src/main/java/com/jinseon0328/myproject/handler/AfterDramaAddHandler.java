@@ -5,6 +5,8 @@ import com.jinseon0328.myproject.domain.Drama;
 import com.jinseon0328.util.Prompt;
 
 public class AfterDramaAddHandler extends AbstractDramaHandler {
+
+
   public AfterDramaAddHandler(List<Drama> dramaList) {
     super(dramaList);
   }

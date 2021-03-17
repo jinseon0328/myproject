@@ -43,7 +43,9 @@ import com.jinseon0328.util.Prompt;
 
 public class App {
 
-  //24-b까지 적용
+  //24-b에 5단계 리팩토링은 메서드가 없는 관계로 실시하지 않았음
+  //24-c에 2단계 AbstractMovieHandler 하는 중
+
 
 
   public static void main(String[] args) throws CloneNotSupportedException {
@@ -185,7 +187,7 @@ public class App {
         try {
           switch (command) {
             case "1":
-              AfterMovieAddHandler.add();
+              AfterMovieAddHandler.service();
               break;
             case "2":
               AfterMovieListHandler.list();

@@ -3,7 +3,7 @@ package com.jinseon0328.myproject.handler;
 import java.util.List;
 import com.jinseon0328.myproject.domain.Movie;
 
-public class AbstractMovieHandler {
+public class AbstractMovieHandler implements Command {
 
   protected static List<Movie> movieList;
 

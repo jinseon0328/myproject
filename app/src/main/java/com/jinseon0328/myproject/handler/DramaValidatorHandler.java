@@ -9,6 +9,7 @@ public class DramaValidatorHandler extends AbstractDramaHandler {
   public DramaValidatorHandler(List<Drama> dramaList) {
     super(dramaList);
   }
+
   public String inputDrama(String promptTitle) {
     while (true) {
       String name = Prompt.inputString(promptTitle);
