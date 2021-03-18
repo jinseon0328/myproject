@@ -48,6 +48,7 @@ public class App {
 
 
 
+
   public static void main(String[] args) throws CloneNotSupportedException {
 
     ArrayList<Board> dramaboardList = new ArrayList<>();
