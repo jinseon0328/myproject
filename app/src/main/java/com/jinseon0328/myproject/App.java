@@ -43,8 +43,8 @@ import com.jinseon0328.util.Prompt;
 
 public class App {
 
-  //24-b에 5단계 리팩토링은 메서드가 없는 관계로 실시하지 않았음
-  //24-c에 2단계 AbstractMovieHandler 하는 중
+  // 24-b에 5단계 리팩토링은 메서드가 없는 관계로 실시하지 않았음
+  // 24-c에 2단계 AbstractMovieHandler 하는 중
 
 
 
