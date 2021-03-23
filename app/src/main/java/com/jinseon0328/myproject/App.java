@@ -1,5 +1,7 @@
 package com.jinseon0328.myproject;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.LinkedList;
 import com.jinseon0328.myproject.domain.Board;
 import com.jinseon0328.myproject.domain.Drama;
 import com.jinseon0328.myproject.domain.Movie;
@@ -27,6 +29,7 @@ import com.jinseon0328.myproject.handler.BeforeMovieDetailHandler;
 import com.jinseon0328.myproject.handler.BeforeMovieListHandler;
 import com.jinseon0328.myproject.handler.BeforeMovieSearchHandler;
 import com.jinseon0328.myproject.handler.BeforeMovieUpdateHandler;
+import com.jinseon0328.myproject.handler.Command;
 import com.jinseon0328.myproject.handler.DramaBoardAddHandler;
 import com.jinseon0328.myproject.handler.DramaBoardDeleteHandler;
 import com.jinseon0328.myproject.handler.DramaBoardDetailHandler;
@@ -44,9 +47,16 @@ import com.jinseon0328.util.Prompt;
 public class App {
 
   // 24-b에 5단계 리팩토링은 메서드가 없는 관계로 실시하지 않았음
-  // 24-c에 2단계 AbstractMovieHandler 하는 중
+  // 24-c에 2단계 command 적용이 안됨
+  // 24-d에 App 바꾸고 있었음
 
   public static void main(String[] args) throws CloneNotSupportedException {
+
+    ArrayList<Drama> dramaList = new ArrayList<>();
+    ArrayList<Movie> movieList = new ArrayList<>();
+    LinkedList<Board> boardList = new LinkedList<>();
+
+    HashMap<String, Command> commandMap = new HashMap<>();
 
     ArrayList<Board> dramaboardList = new ArrayList<>();
     DramaBoardAddHandler dramaboardAddHandler = new DramaBoardAddHandler(dramaboardList);
@@ -88,7 +98,6 @@ public class App {
     BeforeMovieUpdateHandler beforemovieUpdateHandler = new BeforeMovieUpdateHandler(beforemovieList);
     BeforeMovieSearchHandler beforemovieSearchHandler = new BeforeMovieSearchHandler(beforemovieList);
 
-    ArrayList<Movie> aftermovieList = new ArrayList<>();
     AfterMovieAddHandler aftermovieAddHandler = new AfterMovieAddHandler(aftermovieList);
     AfterMovieListHandler aftermovieListHandler = new AfterMovieListHandler(aftermovieList);
     AfterMovieDetailHandler aftermovieDetailHandler = new AfterMovieDetailHandler(aftermovieList);
