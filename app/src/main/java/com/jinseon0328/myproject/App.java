@@ -167,7 +167,7 @@ public class App {
       }
   }
 
-  public static void afterMovieService() {
+  static void afterMovieService() {
 
     loop:
       while (true) {
@@ -188,7 +188,7 @@ public class App {
         try {
           switch (command) {
             case "1":
-              AfterMovieAddHandler.service();
+              AfterMovieAddHandler.add();
               break;
             case "2":
               AfterMovieListHandler.list();

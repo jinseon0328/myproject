@@ -8,7 +8,7 @@ public class AfterMovieAddHandler extends AbstractMovieHandler {
   public AfterMovieAddHandler(List<Movie> movieList) {
     super(movieList);
   }
-  public static void add() {
+  public static void add() throws CloneNotSupportedException {
 
     System.out.println("[영화 기록]");
 
