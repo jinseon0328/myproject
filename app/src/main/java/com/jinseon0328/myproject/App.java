@@ -1,5 +1,9 @@
 package com.jinseon0328.myproject;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.sql.Date;
 import java.util.ArrayList;
+import java.util.LinkedList;
 import com.jinseon0328.myproject.domain.Board;
 import com.jinseon0328.myproject.domain.Drama;
 import com.jinseon0328.myproject.domain.Movie;
@@ -44,11 +48,21 @@ import com.jinseon0328.util.Prompt;
 public class App {
 
   // 24-b에 5단계 리팩토링은 메서드가 없는 관계로 실시하지 않았음
-  // 24-c까지 적용!
+  // 24-d 적용하려면 번호 방식을 전부 바꿔야 해서 실시하지 않았음
+  // 25 적용하고 있는 중!
 
-  public static void main(String[] args) throws CloneNotSupportedException {
+  static LinkedList<Board> dramaboardList = new LinkedList<>();
 
-    ArrayList<Board> dramaboardList = new ArrayList<>();
+  public static void main(String[] args)  {
+
+    loadBoards();
+
+    LinkedList<Board> movieboardList = new LinkedList<>();
+    ArrayList<Drama> beforedramaList = new ArrayList<>();
+    ArrayList<Drama> afterdramaList = new ArrayList<>();
+    ArrayList<Movie> beforemovieList = new ArrayList<>();
+    ArrayList<Movie> aftermovieList = new ArrayList<>();
+
     DramaBoardAddHandler dramaboardAddHandler = new DramaBoardAddHandler(dramaboardList);
     DramaBoardListHandler dramaboardListHandler = new DramaBoardListHandler(dramaboardList);
     DramaBoardDetailHandler dramaDetailHandler = new DramaBoardDetailHandler(dramaboardList);
@@ -56,7 +70,6 @@ public class App {
     DramaBoardUpdateHandler dramaboardUpdateHandler = new DramaBoardUpdateHandler(dramaboardList);
     DramaBoardSearchHandler dramaboardSearchHandler = new DramaBoardSearchHandler(dramaboardList);  
 
-    ArrayList<Board> movieboardList = new ArrayList<>();
     MovieBoardAddHandler movieboardAddHandler = new MovieBoardAddHandler(movieboardList);
     MovieBoardListHandler movieboardListHandler = new MovieBoardListHandler(movieboardList);
     MovieBoardDetailHandler movieDetailHandler = new MovieBoardDetailHandler(movieboardList);
@@ -64,7 +77,6 @@ public class App {
     MovieBoardUpdateHandler movieboardUpdateHandler = new MovieBoardUpdateHandler(movieboardList);
     MovieBoardSearchHandler movieboardSearchHandler = new MovieBoardSearchHandler(movieboardList);  
 
-    ArrayList<Drama> beforedramaList = new ArrayList<>();
     BeforeDramaAddHandler beforedramaAddHandler = new BeforeDramaAddHandler(beforedramaList);
     BeforeDramaListHandler beforedramaListHandler = new BeforeDramaListHandler(beforedramaList);
     BeforeDramaDetailHandler beforedramaDetailHandler = new BeforeDramaDetailHandler(beforedramaList);
@@ -72,7 +84,6 @@ public class App {
     BeforeDramaUpdateHandler beforedramaUpdateHandler = new BeforeDramaUpdateHandler(beforedramaList);
     BeforeDramaSearchHandler beforedramaSearchHandler = new BeforeDramaSearchHandler(beforedramaList);
 
-    ArrayList<Drama> afterdramaList = new ArrayList<>();
     AfterDramaAddHandler afterdramaAddHandler = new AfterDramaAddHandler(afterdramaList);
     AfterDramaListHandler afterdramaListHandler = new AfterDramaListHandler(afterdramaList);
     AfterDramaDetailHandler afterdramaDetailHandler = new AfterDramaDetailHandler(afterdramaList);
@@ -80,7 +91,6 @@ public class App {
     AfterDramaUpdateHandler afterdramaUpdateHandler = new AfterDramaUpdateHandler(afterdramaList);
     AfterDramaSearchHandler afteredramaSearchHandler = new AfterDramaSearchHandler(afterdramaList);
 
-    ArrayList<Movie> beforemovieList = new ArrayList<>();
     BeforeMovieAddHandler beforemovieAddHandler = new BeforeMovieAddHandler(beforemovieList);
     BeforeMovieListHandler beforemovieListHandler = new BeforeMovieListHandler(beforemovieList);
     BeforeMovieDetailHandler beforemovieDetailHandler = new BeforeMovieDetailHandler(beforemovieList);
@@ -88,7 +98,6 @@ public class App {
     BeforeMovieUpdateHandler beforemovieUpdateHandler = new BeforeMovieUpdateHandler(beforemovieList);
     BeforeMovieSearchHandler beforemovieSearchHandler = new BeforeMovieSearchHandler(beforemovieList);
 
-    ArrayList<Movie> aftermovieList = new ArrayList<>();
     AfterMovieAddHandler aftermovieAddHandler = new AfterMovieAddHandler(aftermovieList);
     AfterMovieListHandler aftermovieListHandler = new AfterMovieListHandler(aftermovieList);
     AfterMovieDetailHandler aftermovieDetailHandler = new AfterMovieDetailHandler(aftermovieList);
@@ -504,4 +513,476 @@ public class App {
         System.out.println();
       }
   }
-}
+
+  static void loadBoards() {
+    try (FileInputStream in = new FileInputStream("boards.data")) {
+      // boards.data 파일 포맷에 따라 데이터를 읽는다.
+      // 1) 게시글 개수
+      int size = in.read() << 8 | in.read();
+
+      // 2) 게시글 개수 만큼 게시글을 읽는다.
+      for (int i = 0; i < size; i++) {
+        // 게시글 데이터를 저장할 객체 준비
+        Board b = new Board();
+
+        // 게시글 데이터를 읽어서 객체에 저장
+        // - 게시글 번호를 읽어서 객체에 저장
+        int len = in.read() << 8 | in.read();
+        byte[] buf = new byte[len];
+        in.read(buf);
+        b.setName(new String(buf, "UTF-8"));
+
+        // - 게시글 내용을 읽어서 객체에 저장
+        len = in.read() << 8 | in.read();
+        buf = new byte[len];
+        in.read(buf);
+        b.setReason(new String(buf, "UTF-8"));
+
+        // - 게시글 작성자 읽어서 객체에 저장
+        len = in.read() << 8 | in.read();
+        buf = new byte[len];
+        in.read(buf);
+        b.setWriter(new String(buf, "UTF-8"));
+
+        // - 게시글 등록일을 읽어서 객체에 저장
+        len = in.read() << 8 | in.read();
+        buf = new byte[len];
+        in.read(buf);
+        b.setRegisteredDate(Date.valueOf(new String(buf, "UTF-8")));
+
+        // - 게시글 조회수를 읽어서 객체에 저장
+        b.setViewCount(in.read() << 24 | in.read() << 16 | in.read() << 8 | in.read());
+
+        // 게시글 객체를 컬렉션에 저장
+        dramaboardList.add(b);
+      }
+      System.out.println("게시글 데이터 로딩!");
+
+    } catch (Exception e) {
+      System.out.println("게시글 데이터 로딩 중 오류 발생!");
+    }
+  }
+
+  static void saveBoards() {
+    try (FileOutputStream out = new FileOutputStream("boards.data")) {
+
+      // boards.data 파일 포맷
+      // - 2바이트: 저장된 게시글 개수
+      // - 게시글 데이터 목록
+      //   - 4바이트: 게시글 번호
+      //   - 게시글 제목
+      //     - 2바이트: 게시글 제목의 바이트 배열 개수
+      //     - x바이트: 게시글 제목의 바이트 배열
+      //   - 게시글 내용
+      //     - 2바이트: 게시글 내용의 바이트 배열 개수
+      //     - x바이트: 게시글 내용의 바이트 배열
+      //   - 작성자
+      //     - 2바이트: 작성자의 바이트 배열 개수
+      //     - x바이트: 작성자의 바이트 배열
+      //   - 등록일
+      //     - 2바이트: 등록일의 바이트 배열 개수
+      //     - x바이트: 등록일의 바이트 배열
+      //   - 4바이트: 조회수
+      int size = dramaboardList.size();
+      out.write(size >> 8);
+      out.write(size);
+
+      for (Board b : dramaboardList) {
+        // 게시글 제목
+        byte[] buf = b.getName().getBytes("UTF-8");
+        // - 게시글 제목의 바이트 개수
+        out.write(buf.length >> 8);
+        out.write(buf.length);
+        // - 게시글 제목의 바이트 배열
+        out.write(buf);
+
+        // 게시글 내용
+        buf = b.getReason().getBytes("UTF-8");
+        out.write(buf.length >> 8);
+        out.write(buf.length);
+        out.write(buf);
+
+        // 작성자
+        buf = b.getWriter().getBytes("UTF-8");
+        out.write(buf.length >> 8);
+        out.write(buf.length);
+        out.write(buf);
+
+        // 등록일
+        buf = b.getRegisteredDate().toString().getBytes("UTF-8");
+        out.write(buf.length >> 8);
+        out.write(buf.length);
+        out.write(buf);
+
+        // 조회수
+        out.write(b.getViewCount() >> 24);
+        out.write(b.getViewCount() >> 16);
+        out.write(b.getViewCount() >> 8);
+        out.write(b.getViewCount());
+      }
+      System.out.println("게시글 데이터 저장!");
+
+    } catch (Exception e) {
+      System.out.println("게시글 데이터를 파일로 저장하는 중에 오류 발생!");
+    }
+  }
+
+  static void loadMovies() {
+
+    try (FileInputStream in = new FileInputStream("movies.data")) {
+
+      // 데이터의 개수를 먼저 읽는다. (2바이트)
+      int size = in.read() << 8 | in.read();
+
+      for (int i = 0; i < size; i++) {
+        // 데이터를 담을 객체 준비
+        Movie movie = new Movie();
+
+        // 문자열을 읽을 바이트 배열을 준비한다.
+        byte[] bytes = new byte[30000];
+
+        // 출력 형식에 맞춰서 파일에서 데이터를 읽는다.
+
+        // => 영화 이름 읽기
+        int len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        movie.setTitle(new String(bytes, 0, len, "UTF-8"));
+
+        // => 영화 관람일 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        movie.setWhen(Date.valueOf(new String(bytes, 0, 10, "UTF-8")));
+
+        // => 영화 동반인 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        movie.setWithWho(new String(bytes, 0, len, "UTF-8"));
+
+        // => 영화 관람 장소 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        movie.setWhere(new String(bytes, 0, len, "UTF-8"));
+
+        // => 영화 감독 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        movie.setDirector(new String(bytes, 0, len, "UTF-8"));
+
+        // => 영화 감독 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        movie.setDirector(new String(bytes, 0, len, "UTF-8"));
+
+        // => 영화 출연진 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        movie.setCast(new String(bytes, 0, len, "UTF-8"));
+
+        // => 영화 러닝타임 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        movie.setRunningTime(new String(bytes, 0, len, "UTF-8"));
+
+        // => 영화 감상 등록일 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, 10);
+        movie.setRegisteredDate(Date.valueOf(new String(bytes, 0, 10, "UTF-8")));
+
+        movieList.add(movie);
+      }
+      System.out.println("회원 데이터 로딩!");
+
+    } catch (Exception e) {
+      System.out.println("회원 데이터 로딩 중 오류 발생!");
+    }
+  }
+
+  static void saveMovies() {
+
+    try (FileOutputStream out = new FileOutputStream("movies.data")) {
+
+      // 데이터의 개수를 먼저 출력한다.(2바이트)
+      out.write(memberList.size() >> 8);
+      out.write(memberList.size());
+
+      for (Member member : memberList) {
+        // 회원 목록에서 회원 데이터를 꺼내 바이너리 형식으로 출력한다.
+        // => 회원 번호 출력 (4바이트)
+        out.write(member.getNo() >> 24);
+        out.write(member.getNo() >> 16);
+        out.write(member.getNo() >> 8);
+        out.write(member.getNo());
+
+        // => 회원 이름 
+        //    문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        byte[] bytes = member.getName().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+
+        // => 회원 이메일 
+        //    문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        bytes = member.getEmail().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+
+        // => 회원 암호 
+        //    문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        bytes = member.getPassword().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+
+        // => 회원 사진 
+        //    문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        bytes = member.getPhoto().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+
+        // => 회원 전화 
+        //    문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        bytes = member.getTel().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+
+        // => 회원 등록일
+        //      문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        bytes = member.getRegisteredDate().toString().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+      }
+      System.out.println("회원 데이터 저장!");
+
+    } catch (Exception e) {
+      System.out.println("회원 데이터를 파일로 저장하는 중에 오류 발생!");
+    }
+  }
+
+  static void loadProjects() {
+
+    try (FileInputStream in = new FileInputStream("projects.data")) {
+
+      // 데이터의 개수를 먼저 읽는다. (2바이트)
+      int size = in.read() << 8 | in.read();
+
+      for (int i = 0; i < size; i++) {
+        // 데이터를 담을 객체 준비
+        Project project = new Project();
+
+        // 출력 형식에 맞춰서 파일에서 데이터를 읽는다.
+        // => 프로젝트 번호 읽기
+        int value = in.read() << 24;
+        value += in.read() << 16;
+        value += in.read() << 8;
+        value += in.read();
+        project.setNo(value);
+
+        // 문자열을 읽을 바이트 배열을 준비한다.
+        byte[] bytes = new byte[30000];
+
+        // => 프로젝트 제목 읽기
+        int len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        project.setTitle(new String(bytes, 0, len, "UTF-8"));
+
+        // => 프로젝트 내용 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        project.setContent(new String(bytes, 0, len, "UTF-8"));
+
+        // => 프로젝트 시작일 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        project.setStartDate(Date.valueOf(new String(bytes, 0, 10, "UTF-8")));
+
+        // => 프로젝트 종료일 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        project.setEndDate(Date.valueOf(new String(bytes, 0, 10, "UTF-8")));
+
+        // => 프로젝트 소유주 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        project.setOwner(new String(bytes, 0, len, "UTF-8"));
+
+        // => 프로젝트 멤버들 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        project.setMembers(new String(bytes, 0, len, "UTF-8"));
+
+        projectList.add(project);
+      }
+      System.out.println("프로젝트 데이터 로딩!");
+
+    } catch (Exception e) {
+      System.out.println("프로젝트 데이터 로딩 중 오류 발생!");
+    }
+  }
+
+  static void saveProjects() {
+
+    try (FileOutputStream out = new FileOutputStream("projects.data")) {
+
+      // 데이터의 개수를 먼저 출력한다.(2바이트)
+      out.write(projectList.size() >> 8);
+      out.write(projectList.size());
+
+      for (Project project : projectList) {
+        // 프로젝트 목록에서 프로젝트 데이터를 꺼내 바이너리 형식으로 출력한다.
+        // => 프로젝트 번호 출력 (4바이트)
+        out.write(project.getNo() >> 24);
+        out.write(project.getNo() >> 16);
+        out.write(project.getNo() >> 8);
+        out.write(project.getNo());
+
+        // => 프로젝트 제목 
+        //    문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        byte[] bytes = project.getTitle().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+
+        // => 프로젝트 내용
+        //    문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        bytes = project.getContent().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+
+        // => 프로젝트 시작일
+        //    문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        bytes = project.getStartDate().toString().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+
+        // => 프로젝트 종료일 
+        //    문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        bytes = project.getEndDate().toString().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+
+        // => 프로젝트 소유주
+        //    문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        bytes = project.getOwner().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+
+        // => 프로젝트 멤버들
+        //    문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        bytes = project.getMembers().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+      }
+      System.out.println("프로젝트 데이터 저장!");
+
+    } catch (Exception e) {
+      System.out.println("프로젝트 데이터를 파일로 저장하는 중에 오류 발생!");
+    }
+  }
+
+  static void loadTasks() {
+
+    try (FileInputStream in = new FileInputStream("tasks.data")) {
+
+      // 데이터의 개수를 먼저 읽는다. (2바이트)
+      int size = in.read() << 8 | in.read();
+
+      for (int i = 0; i < size; i++) {
+        // 데이터를 담을 객체 준비
+        Task task = new Task();
+
+        // 출력 형식에 맞춰서 파일에서 데이터를 읽는다.
+        // => 작업 번호 읽기
+        int value = in.read() << 24;
+        value += in.read() << 16;
+        value += in.read() << 8;
+        value += in.read();
+        task.setNo(value);
+
+        // 문자열을 읽을 바이트 배열을 준비한다.
+        byte[] bytes = new byte[30000];
+
+        // => 작업 내용 읽기
+        int len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        task.setContent(new String(bytes, 0, len, "UTF-8"));
+
+        // => 작업 종료일 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        task.setDeadline(Date.valueOf(new String(bytes, 0, 10, "UTF-8")));
+
+        // => 작업 상태 읽기
+        value = in.read() << 24;
+        value += in.read() << 16;
+        value += in.read() << 8;
+        value += in.read();
+        task.setStatus(value);
+
+        // => 작업 소유주 읽기
+        len = in.read() << 8 | in.read();
+        in.read(bytes, 0, len);
+        task.setOwner(new String(bytes, 0, len, "UTF-8"));
+
+        taskList.add(task);
+      }
+      System.out.println("작업 데이터 로딩!");
+
+    } catch (Exception e) {
+      System.out.println("작업 데이터 로딩 중 오류 발생!");
+    }
+  }
+
+  static void saveTasks() {
+
+    try (FileOutputStream out = new FileOutputStream("tasks.data")) {
+
+      // 데이터의 개수를 먼저 출력한다.(2바이트)
+      out.write(taskList.size() >> 8);
+      out.write(taskList.size());
+
+      for (Task task : taskList) {
+        // 작업 목록에서 작업 데이터를 꺼내 바이너리 형식으로 출력한다.
+        // => 작업 번호 출력 (4바이트)
+        out.write(task.getNo() >> 24);
+        out.write(task.getNo() >> 16);
+        out.write(task.getNo() >> 8);
+        out.write(task.getNo());
+
+        // => 작업 내용 
+        //    문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        byte[] bytes = task.getContent().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+
+        // => 작업 종료일(10바이트)
+        bytes = task.getDeadline().toString().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+
+        // => 작업 상태 출력 (4바이트)
+        out.write(task.getStatus() >> 24);
+        out.write(task.getStatus() >> 16);
+        out.write(task.getStatus() >> 8);
+        out.write(task.getStatus());
+
+        // => 작업 소유주
+        //    문자열의 바이트 길이(2바이트) + 문자열의 바이트 배열
+        bytes = task.getOwner().getBytes("UTF-8");
+        out.write(bytes.length >> 8);
+        out.write(bytes.length);
+        out.write(bytes);
+      }
+      System.out.println("작업 데이터 저장!");
+    }
+  }
