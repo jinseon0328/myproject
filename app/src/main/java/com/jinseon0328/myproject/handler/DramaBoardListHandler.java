@@ -8,7 +8,8 @@ public class DramaBoardListHandler extends AbstractDramaBoardHandler {
   public DramaBoardListHandler(List<Board> boardList) {
     super(boardList);
   }
-  public static void list() throws CloneNotSupportedException {
+  @Override
+  public void service() {
 
     System.out.println("[추천한 영화 목록]");
     Iterator<Board> iterator = boardList.iterator();

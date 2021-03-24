@@ -8,7 +8,8 @@ public class BeforeDramaUpdateHandler extends AbstractDramaHandler {
   public BeforeDramaUpdateHandler(List<Drama> dramaList) {
     super(dramaList);
   }
-  public static void update() {
+  @Override
+  public void service() {
     System.out.println("[드라마 변경]");
 
     String title = Prompt.inputString("제목: ");

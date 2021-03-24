@@ -8,7 +8,8 @@ public class MovieBoardDeleteHandler extends AbstractMovieBoardHandler {
   public MovieBoardDeleteHandler(List<Board> boardList) {
     super(boardList);
   }
-  public static void delete() {
+  @Override
+  public void service() {
     System.out.println("[추천 영화 삭제]");
 
     String name = Prompt.inputString("제목? ");

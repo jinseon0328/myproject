@@ -9,7 +9,8 @@ public class AfterDramaUpdateHandler extends AbstractDramaHandler{
     super(dramaList);
   } 
 
-  public static void update() {
+  @Override
+  public void service() {
     System.out.println("[드라마 변경]");
 
     String title = Prompt.inputString("제목: ");

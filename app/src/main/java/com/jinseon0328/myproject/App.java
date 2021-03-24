@@ -1,7 +1,5 @@
 package com.jinseon0328.myproject;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 import com.jinseon0328.myproject.domain.Board;
 import com.jinseon0328.myproject.domain.Drama;
 import com.jinseon0328.myproject.domain.Movie;
@@ -29,7 +27,6 @@ import com.jinseon0328.myproject.handler.BeforeMovieDetailHandler;
 import com.jinseon0328.myproject.handler.BeforeMovieListHandler;
 import com.jinseon0328.myproject.handler.BeforeMovieSearchHandler;
 import com.jinseon0328.myproject.handler.BeforeMovieUpdateHandler;
-import com.jinseon0328.myproject.handler.Command;
 import com.jinseon0328.myproject.handler.DramaBoardAddHandler;
 import com.jinseon0328.myproject.handler.DramaBoardDeleteHandler;
 import com.jinseon0328.myproject.handler.DramaBoardDetailHandler;
@@ -47,16 +44,9 @@ import com.jinseon0328.util.Prompt;
 public class App {
 
   // 24-b에 5단계 리팩토링은 메서드가 없는 관계로 실시하지 않았음
-  // 24-c에 2단계 command 적용이 안됨
-  // 24-d에 App 바꾸고 있었음
+  // 24-c까지 적용!
 
   public static void main(String[] args) throws CloneNotSupportedException {
-
-    ArrayList<Drama> dramaList = new ArrayList<>();
-    ArrayList<Movie> movieList = new ArrayList<>();
-    LinkedList<Board> boardList = new LinkedList<>();
-
-    HashMap<String, Command> commandMap = new HashMap<>();
 
     ArrayList<Board> dramaboardList = new ArrayList<>();
     DramaBoardAddHandler dramaboardAddHandler = new DramaBoardAddHandler(dramaboardList);
@@ -98,6 +88,7 @@ public class App {
     BeforeMovieUpdateHandler beforemovieUpdateHandler = new BeforeMovieUpdateHandler(beforemovieList);
     BeforeMovieSearchHandler beforemovieSearchHandler = new BeforeMovieSearchHandler(beforemovieList);
 
+    ArrayList<Movie> aftermovieList = new ArrayList<>();
     AfterMovieAddHandler aftermovieAddHandler = new AfterMovieAddHandler(aftermovieList);
     AfterMovieListHandler aftermovieListHandler = new AfterMovieListHandler(aftermovieList);
     AfterMovieDetailHandler aftermovieDetailHandler = new AfterMovieDetailHandler(aftermovieList);
@@ -194,10 +185,10 @@ public class App {
         try {
           switch (command) {
             case "1":
-              AfterMovieAddHandler.add();
+              AfterMovieAddHandler.service();
               break;
             case "2":
-              AfterMovieListHandler.list();
+              AfterMovieListHandler.service();
               break;
             case "3":
               AfterMovieDetailHandler.detail();
@@ -327,22 +318,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              AfterDramaAddHandler.add();
+              AfterDramaAddHandler.service();
               break;
             case "2":
-              AfterDramaListHandler.list();
+              AfterDramaListHandler.service();
               break;
             case "3":
-              AfterDramaDetailHandler.detail();
+              AfterDramaDetailHandler.service();
               break;
             case "4":
-              AfterDramaUpdateHandler.update();
+              AfterDramaUpdateHandler.service();
               break;
             case "5":
-              AfterDramaDeleteHandler.delete();
+              AfterDramaDeleteHandler.service();
               break;
             case "6":
-              AfterDramaSearchHandler.search();
+              AfterDramaSearchHandler.service();
               break;
             case "0":
               break loop;
@@ -381,22 +372,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              BeforeDramaAddHandler.add();
+              BeforeDramaAddHandler.service();
               break;
             case "2":
-              BeforeDramaListHandler.list();
+              BeforeDramaListHandler.service();
               break;
             case "3":
-              BeforeDramaDetailHandler.detail();
+              BeforeDramaDetailHandler.service();
               break;
             case "4":
-              BeforeDramaUpdateHandler.update();
+              BeforeDramaUpdateHandler.service();
               break;
             case "5":
-              BeforeDramaDeleteHandler.delete();
+              BeforeDramaDeleteHandler.service();
               break;
             case "6":
-              BeforeDramaSearchHandler.search();
+              BeforeDramaSearchHandler.service();
               break;
             case "0":
               break loop;
@@ -432,22 +423,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              MovieBoardAddHandler.add();
+              MovieBoardAddHandler.service();
               break;
             case "2":
-              MovieBoardListHandler.list();
+              MovieBoardListHandler.service();
               break;
             case "3":
-              MovieBoardDetailHandler.detail();
+              MovieBoardDetailHandler.service();
               break;
             case "4":
-              MovieBoardUpdateHandler.update();
+              MovieBoardUpdateHandler.service();
               break;
             case "5":
-              MovieBoardDeleteHandler.delete();
+              MovieBoardDeleteHandler.service();
               break;
             case "6":
-              MovieBoardSearchHandler.search();
+              MovieBoardSearchHandler.service();
               break;
             case "0":
               break loop;
@@ -482,22 +473,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              DramaBoardAddHandler.add();
+              DramaBoardAddHandler.service();
               break;
             case "2":
-              DramaBoardListHandler.list();
+              DramaBoardListHandler.service();
               break;
             case "3":
-              DramaBoardDetailHandler.detail();
+              DramaBoardDetailHandler.service();
               break;
             case "4":
-              DramaBoardUpdateHandler.update();
+              DramaBoardUpdateHandler.service();
               break;
             case "5":
-              DramaBoardDeleteHandler.delete();
+              DramaBoardDeleteHandler.service();
               break;
             case "6":
-              DramaBoardSearchHandler.search();
+              DramaBoardSearchHandler.service();
               break;
             case "0":
               break loop;

@@ -10,7 +10,8 @@ public class AfterDramaAddHandler extends AbstractDramaHandler {
   public AfterDramaAddHandler(List<Drama> dramaList) {
     super(dramaList);
   }
-  public static void add() {
+  @Override
+  public void service() {
 
     System.out.println("[드라마 기록하기]");
 

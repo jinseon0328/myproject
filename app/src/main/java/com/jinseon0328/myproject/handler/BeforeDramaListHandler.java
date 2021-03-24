@@ -8,7 +8,8 @@ public class BeforeDramaListHandler extends AbstractDramaHandler {
   public BeforeDramaListHandler(List<Drama> dramaList) {
     super(dramaList);
   }
-  public static void list() throws CloneNotSupportedException {
+  @Override
+  public void service() {
 
     System.out.println("[드라마 목록보기]");
 

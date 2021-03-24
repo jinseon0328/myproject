@@ -9,7 +9,8 @@ public class DramaBoardAddHandler extends AbstractDramaBoardHandler {
   public DramaBoardAddHandler(List<Board> boardList) {
     super(boardList);
   }
-  public static void add() {
+  @Override
+  public void service() {
 
     System.out.println("[추천 드라마 등록]");
 

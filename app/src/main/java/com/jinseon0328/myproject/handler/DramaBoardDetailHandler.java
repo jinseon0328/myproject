@@ -8,7 +8,8 @@ public class DramaBoardDetailHandler extends AbstractDramaBoardHandler{
   public DramaBoardDetailHandler(List<Board> boardList) {
     super(boardList);
   }
-  public static void detail() {
+  @Override
+  public void service() {
     System.out.println("[추천한 드라마 세부 사항]");
     String name = Prompt.inputString("제목: ");
 

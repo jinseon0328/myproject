@@ -8,8 +8,8 @@ public class BeforeMovieAddHandler extends AbstractMovieHandler {
   public BeforeMovieAddHandler(List<Movie> movieList) {
     super(movieList);
   }
-  public static void add() {
-
+  @Override
+  public void service() {
     System.out.println("[앞으로 볼 영화 기록]");
 
     Movie m = new Movie();

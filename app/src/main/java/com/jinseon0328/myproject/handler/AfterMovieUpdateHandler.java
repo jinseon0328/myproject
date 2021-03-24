@@ -8,7 +8,8 @@ public class AfterMovieUpdateHandler extends AbstractMovieHandler {
   public AfterMovieUpdateHandler(List<Movie> movieList) {
     super(movieList);
   }
-  public static void update() {
+  @Override
+  public void service() {
     System.out.println("[영화 변경]");
 
     String title = Prompt.inputString("제목: ");

@@ -8,7 +8,8 @@ public class AfterMovieDetailHandler extends AbstractMovieHandler {
   public AfterMovieDetailHandler(List<Movie> movieList) {
     super(movieList);
   }
-  public static void detail() {
+  @Override
+  public void service() {
     System.out.println("[영화 상세 기록]");
 
     String title = Prompt.inputString("제목: ");

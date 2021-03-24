@@ -10,7 +10,8 @@ public class AfterDramaDeleteHandler extends AbstractDramaHandler {
     super(dramaList);
   }
 
-  public static void delete() {
+  @Override
+  public void service() {
     System.out.println("[드라마 삭제]");
 
     String title = Prompt.inputString("제목: ");

@@ -9,7 +9,8 @@ public class BeforeMovieSearchHandler extends AbstractMovieHandler {
   public BeforeMovieSearchHandler(List<Movie> movieList) {
     super(movieList);
   }
-  public static void search() {
+  @Override
+  public void service() {
     String keyword = Prompt.inputString("검색할 영화를 입력해주세요: ");
 
     if (keyword.length() == 0) {

@@ -3,15 +3,15 @@ package com.jinseon0328.myproject.handler;
 import java.util.List;
 import com.jinseon0328.myproject.domain.Drama;
 
-public class AbstractDramaHandler implements Command {
+public abstract class AbstractDramaHandler implements Command {
 
-  protected static List<Drama> dramaList;
+  protected List<Drama> dramaList;
 
   public AbstractDramaHandler(List<Drama> dramaList) {
     this.dramaList = dramaList;
   }
 
-  public static Drama findByNo(String dramaTitle) {
+  public Drama findByNo(String dramaTitle) {
     Drama[] list = dramaList.toArray(new Drama[0]);
     for (Drama d : list) {
       if (d.getTitle().equals(dramaTitle)) {

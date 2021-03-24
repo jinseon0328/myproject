@@ -9,7 +9,8 @@ public class MovieBoardUpdateHandler extends AbstractMovieBoardHandler {
     super(boardList);
   }
 
-  public static void update() {
+  @Override
+  public void service() {
     System.out.println("[추천 영화 변경]");
 
     String name = Prompt.inputString("제목: ");

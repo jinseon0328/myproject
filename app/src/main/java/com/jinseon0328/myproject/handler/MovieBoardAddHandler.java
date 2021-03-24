@@ -10,7 +10,8 @@ public class MovieBoardAddHandler extends AbstractMovieBoardHandler{
     super(boardList);
   }
 
-  public static void add() {
+  @Override
+  public void service() {
 
     System.out.println("[추천 영화 등록]");
 

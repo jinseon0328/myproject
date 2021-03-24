@@ -9,7 +9,8 @@ public class DramaBoardSearchHandler extends AbstractDramaBoardHandler {
   public DramaBoardSearchHandler(List<Board> boardList) {
     super(boardList);
   }
-  public static void search() {
+  @Override
+  public void service() {
     String keyword = Prompt.inputString("드라마 게시글을 검색하세요. ");
 
     if (keyword.length() == 0) {

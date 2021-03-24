@@ -5,10 +5,13 @@ import com.jinseon0328.myproject.domain.Movie;
 import com.jinseon0328.util.Prompt;
 
 public class AfterMovieAddHandler extends AbstractMovieHandler {
+
   public AfterMovieAddHandler(List<Movie> movieList) {
     super(movieList);
   }
-  public static void add() throws CloneNotSupportedException {
+
+  @Override
+  public void service() {
 
     System.out.println("[영화 기록]");
 

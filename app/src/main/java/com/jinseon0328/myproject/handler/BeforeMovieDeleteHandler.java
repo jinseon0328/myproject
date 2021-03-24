@@ -8,7 +8,8 @@ public class BeforeMovieDeleteHandler extends AbstractMovieHandler {
   public BeforeMovieDeleteHandler(List<Movie> movieList) {
     super(movieList);
   }
-  public static void delete() {
+  @Override
+  public void service() {
     System.out.println("[영화 삭제]");
 
     String title = Prompt.inputString("제목: ");

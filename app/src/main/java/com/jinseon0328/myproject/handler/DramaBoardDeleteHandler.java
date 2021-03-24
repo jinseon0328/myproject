@@ -9,7 +9,8 @@ public class DramaBoardDeleteHandler extends AbstractDramaBoardHandler{
   public DramaBoardDeleteHandler(List<Board> boardList) {
     super(boardList);
   }
-  public static void delete() {
+  @Override
+  public void service() {
     System.out.println("[추천 드라마 삭제]");
 
     String name = Prompt.inputString("제목? ");

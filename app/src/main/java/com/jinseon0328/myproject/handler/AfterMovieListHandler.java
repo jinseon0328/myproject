@@ -8,7 +8,8 @@ public class AfterMovieListHandler extends AbstractMovieHandler {
   public AfterMovieListHandler(List<Movie> movieList) {
     super(movieList);
   }
-  public static void list() throws CloneNotSupportedException {
+  @Override
+  public void service() {
 
     System.out.println("[영화 목록]");
 

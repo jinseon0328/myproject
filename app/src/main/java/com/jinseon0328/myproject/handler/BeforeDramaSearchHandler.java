@@ -11,7 +11,8 @@ public class BeforeDramaSearchHandler extends AbstractDramaHandler {
   }
 
 
-  public static void search() {
+  @Override
+  public void service() {
     String keyword = Prompt.inputString("검색할 드라마를 입력해주세요: ");
 
     if (keyword.length() == 0) {

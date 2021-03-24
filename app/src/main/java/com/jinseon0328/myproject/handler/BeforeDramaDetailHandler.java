@@ -9,7 +9,8 @@ public class BeforeDramaDetailHandler extends AbstractDramaHandler {
     super(dramaList);
   }
 
-  public static void detail() {
+  @Override
+  public void service() {
     System.out.println("[드라마 기록 상세보기]");
 
     String title = Prompt.inputString("제목: ");
