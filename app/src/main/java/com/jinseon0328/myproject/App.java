@@ -52,58 +52,60 @@ public class App {
   // 25 적용하고 있는 중!
 
   static LinkedList<Board> dramaboardList = new LinkedList<>();
+  static ArrayList<Movie> aftermovieList = new ArrayList<>();
+  static AfterMovieAddHandler aftermovieAddHandler = new AfterMovieAddHandler(aftermovieList);
 
-  public static void main(String[] args)  {
+  static LinkedList<Board> movieboardList = new LinkedList<>();
+  static ArrayList<Drama> beforedramaList = new ArrayList<>();
+  static ArrayList<Drama> afterdramaList = new ArrayList<>();
+  static ArrayList<Movie> beforemovieList = new ArrayList<>();
+
+
+  static DramaBoardAddHandler dramaboardAddHandler = new DramaBoardAddHandler(dramaboardList);
+  static DramaBoardListHandler dramaboardListHandler = new DramaBoardListHandler(dramaboardList);
+  static DramaBoardDetailHandler dramaboardDetailHandler = new DramaBoardDetailHandler(dramaboardList);
+  static DramaBoardDeleteHandler dramaboardDeleteHandler = new DramaBoardDeleteHandler(dramaboardList);
+  static DramaBoardUpdateHandler dramaboardUpdateHandler = new DramaBoardUpdateHandler(dramaboardList);
+  static DramaBoardSearchHandler dramaboardSearchHandler = new DramaBoardSearchHandler(dramaboardList);  
+
+  static MovieBoardAddHandler movieboardAddHandler = new MovieBoardAddHandler(movieboardList);
+  static MovieBoardListHandler movieboardListHandler = new MovieBoardListHandler(movieboardList);
+  static MovieBoardDetailHandler movieboardDetailHandler = new MovieBoardDetailHandler(movieboardList);
+  static MovieBoardDeleteHandler movieboardDeleteHandler = new MovieBoardDeleteHandler(movieboardList);
+  static MovieBoardUpdateHandler movieboardUpdateHandler = new MovieBoardUpdateHandler(movieboardList);
+  static MovieBoardSearchHandler movieboardSearchHandler = new MovieBoardSearchHandler(movieboardList);  
+
+  static BeforeDramaAddHandler beforedramaAddHandler = new BeforeDramaAddHandler(beforedramaList);
+  static BeforeDramaListHandler beforedramaListHandler = new BeforeDramaListHandler(beforedramaList);
+  static BeforeDramaDetailHandler beforedramaDetailHandler = new BeforeDramaDetailHandler(beforedramaList);
+  static BeforeDramaDeleteHandler beforedramaDeleteHandler = new BeforeDramaDeleteHandler(beforedramaList);
+  static BeforeDramaUpdateHandler beforedramaUpdateHandler = new BeforeDramaUpdateHandler(beforedramaList);
+  static BeforeDramaSearchHandler beforedramaSearchHandler = new BeforeDramaSearchHandler(beforedramaList);
+
+  static AfterDramaAddHandler afterdramaAddHandler = new AfterDramaAddHandler(afterdramaList);
+  static AfterDramaListHandler afterdramaListHandler = new AfterDramaListHandler(afterdramaList);
+  static AfterDramaDetailHandler afterdramaDetailHandler = new AfterDramaDetailHandler(afterdramaList);
+  static AfterDramaDeleteHandler afterdramaDeleteHandler = new AfterDramaDeleteHandler(afterdramaList);
+  static AfterDramaUpdateHandler afterdramaUpdateHandler = new AfterDramaUpdateHandler(afterdramaList);
+  static AfterDramaSearchHandler afterdramaSearchHandler = new AfterDramaSearchHandler(afterdramaList);
+
+  static BeforeMovieAddHandler beforemovieAddHandler = new BeforeMovieAddHandler(beforemovieList);
+  static BeforeMovieListHandler beforemovieListHandler = new BeforeMovieListHandler(beforemovieList);
+  static BeforeMovieDetailHandler beforemovieDetailHandler = new BeforeMovieDetailHandler(beforemovieList);
+  static BeforeMovieDeleteHandler beforemovieDeleteHandler = new BeforeMovieDeleteHandler(beforemovieList);
+  static BeforeMovieUpdateHandler beforemovieUpdateHandler = new BeforeMovieUpdateHandler(beforemovieList);
+  static BeforeMovieSearchHandler beforemovieSearchHandler = new BeforeMovieSearchHandler(beforemovieList);
+
+  static AfterMovieListHandler aftermovieListHandler = new AfterMovieListHandler(aftermovieList);
+  static AfterMovieDetailHandler aftermovieDetailHandler = new AfterMovieDetailHandler(aftermovieList);
+  static AfterMovieDeleteHandler aftermovieDeleteHandler = new AfterMovieDeleteHandler(aftermovieList);
+  static AfterMovieUpdateHandler aftermovieUpdateHandler = new AfterMovieUpdateHandler(aftermovieList);
+  static AfterMovieSearchHandler aftermovieSearchHandler = new AfterMovieSearchHandler(aftermovieList);
+
+  public static void main(String[] args){
 
     loadBoards();
 
-    LinkedList<Board> movieboardList = new LinkedList<>();
-    ArrayList<Drama> beforedramaList = new ArrayList<>();
-    ArrayList<Drama> afterdramaList = new ArrayList<>();
-    ArrayList<Movie> beforemovieList = new ArrayList<>();
-    ArrayList<Movie> aftermovieList = new ArrayList<>();
-
-    DramaBoardAddHandler dramaboardAddHandler = new DramaBoardAddHandler(dramaboardList);
-    DramaBoardListHandler dramaboardListHandler = new DramaBoardListHandler(dramaboardList);
-    DramaBoardDetailHandler dramaDetailHandler = new DramaBoardDetailHandler(dramaboardList);
-    DramaBoardDeleteHandler dramaboardDeleteHandler = new DramaBoardDeleteHandler(dramaboardList);
-    DramaBoardUpdateHandler dramaboardUpdateHandler = new DramaBoardUpdateHandler(dramaboardList);
-    DramaBoardSearchHandler dramaboardSearchHandler = new DramaBoardSearchHandler(dramaboardList);  
-
-    MovieBoardAddHandler movieboardAddHandler = new MovieBoardAddHandler(movieboardList);
-    MovieBoardListHandler movieboardListHandler = new MovieBoardListHandler(movieboardList);
-    MovieBoardDetailHandler movieDetailHandler = new MovieBoardDetailHandler(movieboardList);
-    MovieBoardDeleteHandler movieboardDeleteHandler = new MovieBoardDeleteHandler(movieboardList);
-    MovieBoardUpdateHandler movieboardUpdateHandler = new MovieBoardUpdateHandler(movieboardList);
-    MovieBoardSearchHandler movieboardSearchHandler = new MovieBoardSearchHandler(movieboardList);  
-
-    BeforeDramaAddHandler beforedramaAddHandler = new BeforeDramaAddHandler(beforedramaList);
-    BeforeDramaListHandler beforedramaListHandler = new BeforeDramaListHandler(beforedramaList);
-    BeforeDramaDetailHandler beforedramaDetailHandler = new BeforeDramaDetailHandler(beforedramaList);
-    BeforeDramaDeleteHandler beforedramaDeleteHandler = new BeforeDramaDeleteHandler(beforedramaList);
-    BeforeDramaUpdateHandler beforedramaUpdateHandler = new BeforeDramaUpdateHandler(beforedramaList);
-    BeforeDramaSearchHandler beforedramaSearchHandler = new BeforeDramaSearchHandler(beforedramaList);
-
-    AfterDramaAddHandler afterdramaAddHandler = new AfterDramaAddHandler(afterdramaList);
-    AfterDramaListHandler afterdramaListHandler = new AfterDramaListHandler(afterdramaList);
-    AfterDramaDetailHandler afterdramaDetailHandler = new AfterDramaDetailHandler(afterdramaList);
-    AfterDramaDeleteHandler afterdramaDeleteHandler = new AfterDramaDeleteHandler(afterdramaList);
-    AfterDramaUpdateHandler afterdramaUpdateHandler = new AfterDramaUpdateHandler(afterdramaList);
-    AfterDramaSearchHandler afteredramaSearchHandler = new AfterDramaSearchHandler(afterdramaList);
-
-    BeforeMovieAddHandler beforemovieAddHandler = new BeforeMovieAddHandler(beforemovieList);
-    BeforeMovieListHandler beforemovieListHandler = new BeforeMovieListHandler(beforemovieList);
-    BeforeMovieDetailHandler beforemovieDetailHandler = new BeforeMovieDetailHandler(beforemovieList);
-    BeforeMovieDeleteHandler beforemovieDeleteHandler = new BeforeMovieDeleteHandler(beforemovieList);
-    BeforeMovieUpdateHandler beforemovieUpdateHandler = new BeforeMovieUpdateHandler(beforemovieList);
-    BeforeMovieSearchHandler beforemovieSearchHandler = new BeforeMovieSearchHandler(beforemovieList);
-
-    AfterMovieAddHandler aftermovieAddHandler = new AfterMovieAddHandler(aftermovieList);
-    AfterMovieListHandler aftermovieListHandler = new AfterMovieListHandler(aftermovieList);
-    AfterMovieDetailHandler aftermovieDetailHandler = new AfterMovieDetailHandler(aftermovieList);
-    AfterMovieDeleteHandler aftermovieDeleteHandler = new AfterMovieDeleteHandler(aftermovieList);
-    AfterMovieUpdateHandler aftermovieUpdateHandler = new AfterMovieUpdateHandler(aftermovieList);
-    AfterMovieSearchHandler aftermovieSearchHandler = new AfterMovieSearchHandler(aftermovieList);
 
     loop:
       while (true) {
@@ -194,22 +196,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              AfterMovieAddHandler.service();
+              aftermovieAddHandler.service();
               break;
             case "2":
-              AfterMovieListHandler.service();
+              aftermovieListHandler.service();
               break;
             case "3":
-              AfterMovieDetailHandler.detail();
+              aftermovieDetailHandler.service();
               break;
             case "4":
-              AfterMovieUpdateHandler.update();
+              aftermovieUpdateHandler.service();
               break;
             case "5":
-              AfterMovieDeleteHandler.delete();
+              aftermovieDeleteHandler.service();
               break;
             case "6":
-              AfterMovieSearchHandler.search();
+              aftermovieSearchHandler.service();
               break;
             case "0":
               break loop;
@@ -246,22 +248,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              BeforeMovieAddHandler.add();
+              beforemovieAddHandler.service();
               break;
             case "2":
-              BeforeMovieListHandler.list();
+              beforemovieListHandler.service();
               break;
             case "3":
-              BeforeMovieDetailHandler.detail();
+              beforemovieDetailHandler.service();
               break;
             case "4":
-              BeforeMovieUpdateHandler.update();
+              beforemovieUpdateHandler.service();
               break;
             case "5":
-              BeforeMovieDeleteHandler.delete();
+              beforemovieDeleteHandler.service();
               break;
             case "6":
-              BeforeMovieSearchHandler.search();
+              beforemovieSearchHandler.service();
               break;
             case "0":
               break loop;
@@ -327,22 +329,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              AfterDramaAddHandler.service();
+              afterdramaAddHandler.service();
               break;
             case "2":
-              AfterDramaListHandler.service();
+              afterdramaListHandler.service();
               break;
             case "3":
-              AfterDramaDetailHandler.service();
+              afterdramaDetailHandler.service();
               break;
             case "4":
-              AfterDramaUpdateHandler.service();
+              afterdramaUpdateHandler.service();
               break;
             case "5":
-              AfterDramaDeleteHandler.service();
+              afterdramaDeleteHandler.service();
               break;
             case "6":
-              AfterDramaSearchHandler.service();
+              afterdramaSearchHandler.service();
               break;
             case "0":
               break loop;
@@ -381,22 +383,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              BeforeDramaAddHandler.service();
+              beforedramaAddHandler.service();
               break;
             case "2":
-              BeforeDramaListHandler.service();
+              beforedramaListHandler.service();
               break;
             case "3":
-              BeforeDramaDetailHandler.service();
+              beforedramaDetailHandler.service();
               break;
             case "4":
-              BeforeDramaUpdateHandler.service();
+              beforedramaUpdateHandler.service();
               break;
             case "5":
-              BeforeDramaDeleteHandler.service();
+              beforedramaDeleteHandler.service();
               break;
             case "6":
-              BeforeDramaSearchHandler.service();
+              beforedramaSearchHandler.service();
               break;
             case "0":
               break loop;
@@ -432,22 +434,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              MovieBoardAddHandler.service();
+              movieboardAddHandler.service();
               break;
             case "2":
-              MovieBoardListHandler.service();
+              movieboardListHandler.service();
               break;
             case "3":
-              MovieBoardDetailHandler.service();
+              movieboardDetailHandler.service();
               break;
             case "4":
-              MovieBoardUpdateHandler.service();
+              movieboardUpdateHandler.service();
               break;
             case "5":
-              MovieBoardDeleteHandler.service();
+              movieboardDeleteHandler.service();
               break;
             case "6":
-              MovieBoardSearchHandler.service();
+              movieboardSearchHandler.service();
               break;
             case "0":
               break loop;
@@ -482,22 +484,22 @@ public class App {
         try {
           switch (command) {
             case "1":
-              DramaBoardAddHandler.service();
+              dramaboardAddHandler.service();
               break;
             case "2":
-              DramaBoardListHandler.service();
+              dramaboardListHandler.service();
               break;
             case "3":
-              DramaBoardDetailHandler.service();
+              dramaboardDetailHandler.service();
               break;
             case "4":
-              DramaBoardUpdateHandler.service();
+              dramaboardUpdateHandler.service();
               break;
             case "5":
-              DramaBoardDeleteHandler.service();
+              dramaboardDeleteHandler.service();
               break;
             case "6":
-              DramaBoardSearchHandler.service();
+              dramaboardSearchHandler.service();
               break;
             case "0":
               break loop;
