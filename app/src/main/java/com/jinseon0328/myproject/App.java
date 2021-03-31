@@ -53,8 +53,6 @@ public class App {
 
   static LinkedList<Board> dramaboardList = new LinkedList<>();
   static ArrayList<Movie> aftermovieList = new ArrayList<>();
-  static AfterMovieAddHandler aftermovieAddHandler = new AfterMovieAddHandler(aftermovieList);
-
   static LinkedList<Board> movieboardList = new LinkedList<>();
   static ArrayList<Drama> beforedramaList = new ArrayList<>();
   static ArrayList<Drama> afterdramaList = new ArrayList<>();
@@ -97,6 +95,7 @@ public class App {
   static BeforeMovieSearchHandler beforemovieSearchHandler = new BeforeMovieSearchHandler(beforemovieList);
 
   static AfterMovieListHandler aftermovieListHandler = new AfterMovieListHandler(aftermovieList);
+  static AfterMovieAddHandler aftermovieAddHandler = new AfterMovieAddHandler(aftermovieList);
   static AfterMovieDetailHandler aftermovieDetailHandler = new AfterMovieDetailHandler(aftermovieList);
   static AfterMovieDeleteHandler aftermovieDeleteHandler = new AfterMovieDeleteHandler(aftermovieList);
   static AfterMovieUpdateHandler aftermovieUpdateHandler = new AfterMovieUpdateHandler(aftermovieList);
@@ -690,7 +689,8 @@ public class App {
         in.read(bytes, 0, 10);
         movie.setRegisteredDate(Date.valueOf(new String(bytes, 0, 10, "UTF-8")));
 
-        movieList.add(movie);
+        aftermovieList.add(movie);
+        beforemovieList.add(movie);
       }
       System.out.println("회원 데이터 로딩!");
 
@@ -704,10 +704,10 @@ public class App {
     try (FileOutputStream out = new FileOutputStream("movies.data")) {
 
       // 데이터의 개수를 먼저 출력한다.(2바이트)
-      out.write(memberList.size() >> 8);
-      out.write(memberList.size());
+      out.write(aftermovieList.size() >> 8);
+      out.write(aftermovieList.size());
 
-      for (Member member : memberList) {
+      for (Aftermovie aftermovie : aftermovieList) {
         // 회원 목록에서 회원 데이터를 꺼내 바이너리 형식으로 출력한다.
         // => 회원 번호 출력 (4바이트)
         out.write(member.getNo() >> 24);
