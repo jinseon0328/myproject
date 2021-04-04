@@ -51,6 +51,8 @@ public class App {
   // 24-d 적용하려면 번호 방식을 전부 바꿔야 해서 실시하지 않았음
   // 25 적용하고 있는 중!
 
+
+
   static LinkedList<Board> dramaboardList = new LinkedList<>();
   static ArrayList<Movie> aftermovieList = new ArrayList<>();
   static AfterMovieAddHandler aftermovieAddHandler = new AfterMovieAddHandler(aftermovieList);
