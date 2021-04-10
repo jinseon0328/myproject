@@ -48,7 +48,7 @@ import com.jinseon0328.util.Prompt;
 public class App {
 
   // 24-b에 5단계 리팩토링은 메서드가 없는 관계로 실시하지 않았음
-  // 24-d 적용하려면 번호 방식을 전부 바꿔야 해서 실시하지 않았음
+  // 24-d 적용하기 위해 모든 메뉴를 문자로 바꾸기로 했음
   // 25 적용하고 있는 중!
 
   static LinkedList<Board> dramaboardList = new LinkedList<>();
