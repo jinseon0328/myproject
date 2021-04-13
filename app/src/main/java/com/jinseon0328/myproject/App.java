@@ -51,6 +51,8 @@ public class App {
   // -> 적용할 예정임
   // 24-d 적용하기 위해 모든 메뉴를 문자로 바꾸기로 했음
   // 25 적용하고 있는중!
+  //
+  //
 
   static LinkedList<Board> dramaboardList = new LinkedList<>();
   static ArrayList<Movie> aftermovieList = new ArrayList<>();
