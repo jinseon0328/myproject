@@ -51,7 +51,7 @@ public class App {
   // -> 적용할 예정임
   // 24-d 적용하기 위해 모든 메뉴를 문자로 바꾸기로 했음
   // 25 적용하고 있는중!
-  // 2021-04-18까지 33 현재 진도까지 다 할것!
+  // 모르겠다.......이게 의미가 있나?
 
   static LinkedList<Board> dramaboardList = new LinkedList<>();
   static ArrayList<Movie> aftermovieList = new ArrayList<>();
@@ -112,29 +112,29 @@ public class App {
       while (true) {
         System.out.println("My Film Book: ");
         System.out.println("\t나의 영상기록 보관함\n");
-        System.out.print("1. 영화\n");
-        System.out.print("2. 드라마\n");
-        System.out.print("3. 영화 추천\n");
-        System.out.print("4. 드라마 추천\n");
-        System.out.println("0. 종료");
+        System.out.print("1. 영화(movie)\n");
+        System.out.print("2. 드라마(drama)\n");
+        System.out.print("3. 영화 추천(movieRecommand)\n");
+        System.out.print("4. 드라마 추천(dramaRecommand)\n");
+        System.out.println("0. 종료(exit)");
         System.out.println();
-        System.out.print("\t-모든 메뉴 선택은 숫자로 해주세요\n");
+        System.out.print("\t-모든 메뉴 선택은 ()를 입력해주세요\n");
 
         String command = com.jinseon0328.util.Prompt.inputString("> ");
         System.out.println();
         switch (command) {
-          case "1":
+          case "movie":
             movieService();
             break;
-          case "2":
+          case "drama":
             dramaService();
             break;
-          case "3":
+          case "movieRecommand":
             movieBoardService();
             break;
-          case "4":
+          case "dramaRecommand":
             dramaBoardService();
-          case "0":
+          case "exit":
             System.out.println("closed Book.");
             break loop;
           default:
