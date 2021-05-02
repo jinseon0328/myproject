@@ -8,6 +8,7 @@ public class AfterMovieUpdateHandler extends AbstractMovieHandler {
   public AfterMovieUpdateHandler(List<Movie> movieList) {
     super(movieList);
   }
+
   @Override
   public void service() {
     System.out.println("[영화 변경]");

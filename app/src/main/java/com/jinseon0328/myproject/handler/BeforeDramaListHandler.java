@@ -8,6 +8,7 @@ public class BeforeDramaListHandler extends AbstractDramaHandler {
   public BeforeDramaListHandler(List<Drama> dramaList) {
     super(dramaList);
   }
+
   @Override
   public void service() {
 

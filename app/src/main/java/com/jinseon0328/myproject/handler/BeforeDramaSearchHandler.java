@@ -10,7 +10,6 @@ public class BeforeDramaSearchHandler extends AbstractDramaHandler {
     super(dramaList);
   }
 
-
   @Override
   public void service() {
     String keyword = Prompt.inputString("검색할 드라마를 입력해주세요: ");
