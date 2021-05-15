@@ -700,6 +700,9 @@ public class App {
     }
   }
 
+
+  // 오류 해결은 6/4 이후
+
   static void saveMovies() {
 
     try (FileOutputStream out = new FileOutputStream("movies.data")) {
