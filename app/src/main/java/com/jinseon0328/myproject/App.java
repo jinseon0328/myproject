@@ -701,7 +701,7 @@ public class App {
   }
 
 
-  // 오류 해결은 6/4 이후
+  // 오류 해결은 월요일부터 할 것!
 
   static void saveMovies() {
 
