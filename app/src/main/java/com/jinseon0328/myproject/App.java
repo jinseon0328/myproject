@@ -53,6 +53,7 @@ public class App {
   // 25 적용하고 있는중!
 
   // 26 적용 예정
+  //
 
   static LinkedList<Board> dramaboardList = new LinkedList<>();
   static ArrayList<Movie> aftermovieList = new ArrayList<>();
